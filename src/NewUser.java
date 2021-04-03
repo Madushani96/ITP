@@ -9,6 +9,8 @@
  * @author nisal
  */
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -17,7 +19,8 @@ public class NewUser extends javax.swing.JFrame {
    Connection conn;
    ResultSet rs;
    PreparedStatement pst;
-
+   static final String pw = "^(?=.*\\d)(?=\\S+$)(?=.*[!#$%&'()*+,-./:;<=>?@^_`{|}])(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
+   private static final Pattern PATTERN = Pattern.compile(pw);
     /**
      * Creates new form NewUser
      */
@@ -77,7 +80,7 @@ public class NewUser extends javax.swing.JFrame {
 
         jLabel5.setText("Security Question");
 
-        combosecu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your favourite colour?", "What is your mother's maiden name?", "What is your alma mater?", "What is your childhood nickname?", "What is your mother toungue?" }));
+        combosecu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "What is your favourite colour?", "What is your mother's maiden name?", "What is your alma mater?", "What is your childhood nickname?", "What is your mother toungue?" }));
         combosecu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combosecuActionPerformed(evt);
@@ -91,7 +94,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
 
-        comborole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admn" }));
+        comborole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "User", "Admin" }));
         comborole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboroleActionPerformed(evt);
@@ -223,6 +226,11 @@ public class NewUser extends javax.swing.JFrame {
     private void registerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbuttonActionPerformed
         // TODO add your handling code here:
         try{
+            
+            
+            
+            if(validateFields()){
+            
             String sql="Insert into user (username,name,role,password,security,answer)values(?,?,?,?,?,?)";
             pst = conn.prepareStatement(sql);
             pst.setString(1, txtusername.getText());
@@ -234,7 +242,10 @@ public class NewUser extends javax.swing.JFrame {
             pst.execute();
             
             JOptionPane.showMessageDialog(null,"New Account Created Successfully!");
+            }
+         
         }catch(Exception e){
+            
             JOptionPane.showMessageDialog(null, e);
             
         }
@@ -293,6 +304,112 @@ public class NewUser extends javax.swing.JFrame {
                 new NewUser().setVisible(true);
             }
         });
+    }
+    
+    public boolean validateFields(){
+        
+        String un = txtusername.getText();
+        String exist = "";
+        String pass = passwordtext.getText();
+        
+         try
+        {
+         
+              String sql="SELECT `username` FROM `user` WHERE `username` = '" +un+ "' GROUP BY `username` HAVING COUNT(*) > '0'";
+            
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+                while (rs.next())
+                {
+                    exist = rs.getString("username");
+                
+                }
+            } 
+        catch (Exception e) 
+        {
+                
+            JOptionPane.showMessageDialog(null, "Failed" + e);
+        }
+            
+        String vname = "[a-z A-Z]+\\.?";
+        String vanswer = "[a-z A-Z]+\\.?";       
+       
+        //validate name
+        Pattern pname = Pattern.compile(vname, Pattern.CASE_INSENSITIVE);
+        Matcher n = pname.matcher(txtname.getText());
+
+        // validate answer
+        Pattern panswer = Pattern.compile(vanswer, Pattern.CASE_INSENSITIVE);
+        Matcher a = panswer.matcher(txtans.getText());
+        
+        if (exist != ""){
+            
+            JOptionPane.showMessageDialog(null, "User already exists under given Username");
+            return false;
+        }  
+        if (txtusername.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Username ");
+            return false;
+            
+        } 
+        
+        if (txtname.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Name ");
+            return false;
+            
+        } 
+        if (comborole.getSelectedItem().toString().equalsIgnoreCase("Select")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Role ");
+            return false;
+        } 
+        if (passwordtext.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Password ");
+            return false;
+            
+        }
+        if (PATTERN.matcher(pass).matches()) {
+                
+            }else{
+            
+                JOptionPane.showMessageDialog(null, "Password should contain an uppercase letter, lowercase letter, a digit and a special character and should be between 8-20 characters long");
+                return false;
+            }
+        
+        if (combosecu.getSelectedItem().toString().equalsIgnoreCase("Select")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Security Question ");
+            return false;
+            
+        }if (txtans.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Answer ");
+            return false;
+            
+        }      
+            
+            if (n.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Name invalid");
+                return false;
+            }
+
+            if (a.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Answer invalid");
+                return false;
+            }
+            return true;
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
