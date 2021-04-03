@@ -21,6 +21,7 @@ public class Home extends javax.swing.JFrame {
     Members mem = new Members();  
     Issues is = new Issues();
     Reading rd = new Reading();
+    Resources rs = new Resources();
     
     public Home() {
         initComponents();
@@ -94,6 +95,7 @@ public class Home extends javax.swing.JFrame {
         time = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
         btnread = new javax.swing.JButton();
+        btnres = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menulogout = new javax.swing.JMenuItem();
@@ -168,6 +170,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resources.png"))); // NOI18N
+        btnres.setBorderPainted(false);
+        btnres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnresActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         menulogout.setText("Exit");
@@ -222,7 +232,8 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(btnissue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnreturn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnmember, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnread, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnread, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnres, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(homedesktop)
                         .addContainerGap())))
@@ -238,15 +249,19 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(homedesktop)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(btnbook, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                        .addGap(57, 57, 57)
+                        .addGap(18, 18, 18)
                         .addComponent(btnissue, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                        .addGap(54, 54, 54)
+                        .addGap(18, 18, 18)
                         .addComponent(btnreturn, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                        .addGap(54, 54, 54)
+                        .addGap(18, 18, 18)
                         .addComponent(btnmember, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                        .addGap(61, 61, 61)
-                        .addComponent(btnread, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnread, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnres, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                        .addGap(32, 32, 32)))
                 .addContainerGap())
         );
 
@@ -297,6 +312,7 @@ public class Home extends javax.swing.JFrame {
     rt.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     mem.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     rd.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
+    rs.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
 }
 
         
@@ -325,6 +341,13 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_menulogoutActionPerformed
+
+    private void btnresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresActionPerformed
+        // TODO add your handling code here:
+        
+       homedesktop.removeAll();  
+       homedesktop.add(rs).setVisible(true);
+    }//GEN-LAST:event_btnresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,6 +390,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnissue;
     private javax.swing.JButton btnmember;
     private javax.swing.JButton btnread;
+    private javax.swing.JButton btnres;
     private javax.swing.JButton btnreturn;
     private javax.swing.JLabel date;
     private javax.swing.JDesktopPane homedesktop;
