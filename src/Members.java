@@ -1094,11 +1094,20 @@ public void calculateDOB()
                 day--;
             }
         }
-
+        
+        if((day >= 367 && day <=500)||(day >= 867) || day == 000){
+        
+            JOptionPane.showMessageDialog(null, "Invalid NIC");
+            bday = "";
+            gen = "";
+        }
+        else{   
+            
         LocalDate d = Year.of(year).atDay(day);
         DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
         bday = d.format(form);
-
+        
+        }     
     }
 
     public boolean validateAdd(){
@@ -1138,6 +1147,19 @@ public void calculateDOB()
         
         String nic = txtnic.getText();
         
+        String nicn;
+        char nic1 = nic.charAt(2);
+        char nic2 = nic.charAt(3);
+        char nic3 = nic.charAt(4);
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(nic1);
+        sb.append(nic2);
+        sb.append(nic3);
+        nicn = sb.toString();
+        
+        int nicx =Integer.parseInt(nicn);  
+            
         String vname = "[a-z A-Z]+\\.?";
         String vphone = "^[0-9]{10}$";
         String vaddress = "[a-z A-Z 0-9 , / ,-]+\\.?";
@@ -1225,10 +1247,15 @@ public void calculateDOB()
                     JOptionPane.showMessageDialog(null, "Enter Valid Charactor ");
                     return false;
                 }
+                if((nicx >= 367 && nicx <=500)||(nicx >= 867) || nicx == 000){
+       
+                    JOptionPane.showMessageDialog(null, "Invalid NIC");
+                     return false;
+               }
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "Invalid NIC ");
+                JOptionPane.showMessageDialog(null, "NIC should be 10 characters long");
                 return false;
             }
 
