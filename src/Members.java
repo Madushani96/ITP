@@ -105,17 +105,15 @@ public class Members extends javax.swing.JInternalFrame {
 
         jButton1.setText("jButton1");
 
-        setBackground(new java.awt.Color(220, 220, 220));
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(898, 487));
 
-        jPanel2.setBackground(new java.awt.Color(40, 46, 88));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnadd.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        btnadd.setForeground(new java.awt.Color(40, 46, 88));
         btnadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         btnadd.setText("   Add  ");
+        btnadd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnaddActionPerformed(evt);
@@ -123,9 +121,9 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btndelete.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        btndelete.setForeground(new java.awt.Color(40, 46, 88));
         btndelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.gif"))); // NOI18N
         btndelete.setText("  Delete");
+        btndelete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btndelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndeleteActionPerformed(evt);
@@ -133,9 +131,9 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btnupdate.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        btnupdate.setForeground(new java.awt.Color(40, 46, 88));
         btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
         btnupdate.setText("  Update");
+        btnupdate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnupdateActionPerformed(evt);
@@ -166,28 +164,22 @@ public class Members extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.setBackground(new java.awt.Color(40, 46, 88));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setForeground(new java.awt.Color(220, 220, 220));
+        jPanel1.setForeground(new java.awt.Color(240, 240, 240));
 
         jLabel5.setBackground(new java.awt.Color(220, 220, 220));
         jLabel5.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(220, 220, 220));
         jLabel5.setText("Member ID");
 
         jLabel6.setBackground(new java.awt.Color(220, 220, 220));
         jLabel6.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(220, 220, 220));
         jLabel6.setText("Name");
 
         jLabel7.setBackground(new java.awt.Color(220, 220, 220));
         jLabel7.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(220, 220, 220));
         jLabel7.setText("NIC");
 
-        txtid.setEditable(false);
-        txtid.setBackground(new java.awt.Color(220, 220, 220));
-        txtid.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        txtid.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtid.setPreferredSize(new java.awt.Dimension(180, 50));
         txtid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,8 +187,7 @@ public class Members extends javax.swing.JInternalFrame {
             }
         });
 
-        txtname.setBackground(new java.awt.Color(220, 220, 220));
-        txtname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtname.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtname.setPreferredSize(new java.awt.Dimension(180, 50));
         txtname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,8 +195,7 @@ public class Members extends javax.swing.JInternalFrame {
             }
         });
 
-        txtnic.setBackground(new java.awt.Color(220, 220, 220));
-        txtnic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtnic.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtnic.setPreferredSize(new java.awt.Dimension(180, 50));
         txtnic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,21 +210,17 @@ public class Members extends javax.swing.JInternalFrame {
 
         jLabel8.setBackground(new java.awt.Color(220, 220, 220));
         jLabel8.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(220, 220, 220));
         jLabel8.setText("Birthday");
 
         jLabel14.setBackground(new java.awt.Color(220, 220, 220));
         jLabel14.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(220, 220, 220));
         jLabel14.setText("Gender");
 
         jLabel15.setBackground(new java.awt.Color(220, 220, 220));
         jLabel15.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(220, 220, 220));
         jLabel15.setText("Occupation");
 
-        txtoccu.setBackground(new java.awt.Color(220, 220, 220));
-        txtoccu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtoccu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtoccu.setPreferredSize(new java.awt.Dimension(180, 50));
         txtoccu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,28 +230,22 @@ public class Members extends javax.swing.JInternalFrame {
 
         jLabel16.setBackground(new java.awt.Color(220, 220, 220));
         jLabel16.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(220, 220, 220));
         jLabel16.setText("Telephone");
 
         jLabel17.setBackground(new java.awt.Color(220, 220, 220));
         jLabel17.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(220, 220, 220));
         jLabel17.setText("Address");
 
         jLabel18.setBackground(new java.awt.Color(220, 220, 220));
         jLabel18.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(220, 220, 220));
         jLabel18.setText("Member Type");
 
-        txttele.setBackground(new java.awt.Color(220, 220, 220));
-        txttele.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txttele.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txttele.setPreferredSize(new java.awt.Dimension(180, 50));
 
-        combotype.setBackground(new java.awt.Color(220, 220, 220));
         combotype.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        combotype.setForeground(new java.awt.Color(40, 46, 88));
         combotype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Child", "Regular", "Senior" }));
-        combotype.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        combotype.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         combotype.setPreferredSize(new java.awt.Dimension(180, 50));
         combotype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,8 +253,7 @@ public class Members extends javax.swing.JInternalFrame {
             }
         });
 
-        txtbday.setBackground(new java.awt.Color(220, 220, 220));
-        txtbday.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtbday.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtbday.setPreferredSize(new java.awt.Dimension(180, 50));
         txtbday.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,8 +269,7 @@ public class Members extends javax.swing.JInternalFrame {
             }
         });
 
-        txtgender.setBackground(new java.awt.Color(220, 220, 220));
-        txtgender.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtgender.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtgender.setPreferredSize(new java.awt.Dimension(180, 50));
         txtgender.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -304,10 +282,9 @@ public class Members extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextArea1.setBackground(new java.awt.Color(205, 205, 205));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextArea1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtaddress.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -410,10 +387,10 @@ public class Members extends javax.swing.JInternalFrame {
                         .addComponent(combotype, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
-        jPanel3.setBackground(new java.awt.Color(40, 46, 88));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setAutoscrolls(true);
 
+        txtsearch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtsearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtsearchActionPerformed(evt);
@@ -426,7 +403,6 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(205, 205, 205));
         jLabel2.setText("Search");
 
         jScrollPane3.setBackground(new java.awt.Color(205, 205, 205));
@@ -451,6 +427,7 @@ public class Members extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jScrollPane1);
 
         combostatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Borrowed", "Eligible" }));
+        combostatus.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         combostatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combostatusActionPerformed(evt);
@@ -484,17 +461,15 @@ public class Members extends javax.swing.JInternalFrame {
         );
 
         jLabel1.setBackground(new java.awt.Color(220, 220, 220));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(40, 46, 88));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Members");
 
-        jPanel4.setBackground(new java.awt.Color(40, 46, 88));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnclear.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        btnclear.setForeground(new java.awt.Color(40, 46, 88));
         btnclear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear.png"))); // NOI18N
         btnclear.setText("  Clear");
+        btnclear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnclear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnclearActionPerformed(evt);
@@ -518,12 +493,11 @@ public class Members extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBackground(new java.awt.Color(40, 46, 88));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnall.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnall.setForeground(new java.awt.Color(40, 46, 88));
         btnall.setText("All Members");
+        btnall.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnallActionPerformed(evt);
@@ -531,8 +505,8 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btnpending.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnpending.setForeground(new java.awt.Color(40, 46, 88));
         btnpending.setText("Pending");
+        btnpending.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnpending.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpendingActionPerformed(evt);
@@ -540,8 +514,8 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btnmonthly.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        btnmonthly.setForeground(new java.awt.Color(40, 46, 88));
         btnmonthly.setText("Monthly Report");
+        btnmonthly.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnmonthly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmonthlyActionPerformed(evt);
@@ -549,7 +523,6 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(205, 205, 205));
         jLabel3.setText("Reports");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -597,7 +570,7 @@ public class Members extends javax.swing.JInternalFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -881,7 +854,7 @@ String search = txtsearch.getText();
 
     private void btnallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnallActionPerformed
         // TODO add your handling code here:
-     /*try{  
+     try{  
        JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\AllMembers.jrxml");
        String sql ="SELECT `memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`, `status`, `registereddate` FROM `member`";
        JRDesignQuery newQuery = new JRDesignQuery();
@@ -896,13 +869,13 @@ String search = txtsearch.getText();
       
           JOptionPane.showMessageDialog(rootPane, e);
         
-      }       */
+      }       
     }//GEN-LAST:event_btnallActionPerformed
 
     private void btnpendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpendingActionPerformed
         // TODO add your handling code here:
         
-        /* try{  
+         try{  
        JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\BorrowedMembers.jrxml");
        String sql ="select m.memberid, m.name, i.isbn, i.bookname, m.telephone, m.address from member m, issue i WHERE m.status = 'borrowed' and m.memberid = m.memberid";
        JRDesignQuery newQuery = new JRDesignQuery();
@@ -917,13 +890,13 @@ String search = txtsearch.getText();
       
           JOptionPane.showMessageDialog(rootPane, e);
         
-      } */      
+      }      
     }//GEN-LAST:event_btnpendingActionPerformed
 
     private void btnmonthlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmonthlyActionPerformed
         // TODO add your handling code here:
         
-       /*  try{  
+        try{  
        JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\Percentage.jrxml");
        String sql ="Select type, (Count(type)* 100 / (Select Count(*) From member)) as Percentage from member group by type";
        JRDesignQuery newQuery = new JRDesignQuery();
@@ -939,7 +912,7 @@ String search = txtsearch.getText();
       
           JOptionPane.showMessageDialog(rootPane, e);
         
-      }  */     
+      }      
     }//GEN-LAST:event_btnmonthlyActionPerformed
 
     private void txtnicKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnicKeyReleased
