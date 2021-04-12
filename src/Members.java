@@ -98,7 +98,7 @@ public class Members extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         btnclear = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        btnall = new javax.swing.JButton();
+        btnhistory = new javax.swing.JButton();
         btnpending = new javax.swing.JButton();
         btnmonthly = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -495,12 +495,12 @@ public class Members extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnall.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnall.setText("All Members");
-        btnall.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnall.addActionListener(new java.awt.event.ActionListener() {
+        btnhistory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnhistory.setText("History");
+        btnhistory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnhistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnallActionPerformed(evt);
+                btnhistoryActionPerformed(evt);
             }
         });
 
@@ -532,7 +532,7 @@ public class Members extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnall, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnhistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnpending, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnmonthly, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                 .addContainerGap())
@@ -547,7 +547,7 @@ public class Members extends javax.swing.JInternalFrame {
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnall, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnhistory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnpending, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -852,11 +852,12 @@ String search = txtsearch.getText();
         clearField();
     }//GEN-LAST:event_btnclearActionPerformed
 
-    private void btnallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnallActionPerformed
+    private void btnhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhistoryActionPerformed
         // TODO add your handling code here:
-     try{  
-       JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\AllMembers.jrxml");
-       String sql ="SELECT `memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`, `status`, `registereddate` FROM `member`";
+           
+    /* try{  
+       JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\History.jrxml");
+       String sql ="SELECT `isbn`, `bookname`, `issuedate`, `returndate`, `fine` FROM `return`";
        JRDesignQuery newQuery = new JRDesignQuery();
        newQuery.setText(sql);
        jasdi.setQuery(newQuery);
@@ -869,50 +870,19 @@ String search = txtsearch.getText();
       
           JOptionPane.showMessageDialog(rootPane, e);
         
-      }       
-    }//GEN-LAST:event_btnallActionPerformed
+      }*/
+    }//GEN-LAST:event_btnhistoryActionPerformed
 
     private void btnpendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpendingActionPerformed
         // TODO add your handling code here:
         
-         try{  
-       JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\BorrowedMembers.jrxml");
-       String sql ="select m.memberid, m.name, i.isbn, i.bookname, m.telephone, m.address from member m, issue i WHERE m.status = 'borrowed' and m.memberid = m.memberid";
-       JRDesignQuery newQuery = new JRDesignQuery();
-       newQuery.setText(sql);
-       jasdi.setQuery(newQuery);
-       JasperReport js = JasperCompileManager.compileReport(jasdi);
-       JasperPrint jp = JasperFillManager.fillReport(js,null, conn);
-       //JasperViewer.viewReport(jp);
-       JasperViewer jv = new JasperViewer( jp, false );
-       jv.viewReport( jp, false );
-      }catch(Exception e){
-      
-          JOptionPane.showMessageDialog(rootPane, e);
-        
-      }      
+         
     }//GEN-LAST:event_btnpendingActionPerformed
 
     private void btnmonthlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmonthlyActionPerformed
         // TODO add your handling code here:
         
-        try{  
-       JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\Percentage.jrxml");
-       String sql ="Select type, (Count(type)* 100 / (Select Count(*) From member)) as Percentage from member group by type";
-       JRDesignQuery newQuery = new JRDesignQuery();
-       newQuery.setText(sql);
-       jasdi.setQuery(newQuery);
-       JasperReport js = JasperCompileManager.compileReport(jasdi);
-       JasperPrint jp = JasperFillManager.fillReport(js,null, conn);
-       //JasperViewer.viewReport(jp);
-       JasperViewer jv = new JasperViewer( jp, false );
-       jv.viewReport( jp, false );
-
-      }catch(Exception e){
-      
-          JOptionPane.showMessageDialog(rootPane, e);
-        
-      }      
+         
     }//GEN-LAST:event_btnmonthlyActionPerformed
 
     private void txtnicKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnicKeyReleased
@@ -1278,9 +1248,9 @@ public void calculateDOB()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnadd;
-    private javax.swing.JButton btnall;
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btndelete;
+    private javax.swing.JButton btnhistory;
     private javax.swing.JButton btnmonthly;
     private javax.swing.JButton btnpending;
     private javax.swing.JButton btnupdate;
