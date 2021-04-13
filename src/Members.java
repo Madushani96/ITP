@@ -855,7 +855,7 @@ String search = txtsearch.getText();
     private void btnhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhistoryActionPerformed
         // TODO add your handling code here:
            
-    /* try{  
+     try{  
        JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\History.jrxml");
        String sql ="SELECT `isbn`, `bookname`, `issuedate`, `returndate`, `fine` FROM `return`";
        JRDesignQuery newQuery = new JRDesignQuery();
@@ -870,7 +870,7 @@ String search = txtsearch.getText();
       
           JOptionPane.showMessageDialog(rootPane, e);
         
-      }*/
+      }
     }//GEN-LAST:event_btnhistoryActionPerformed
 
     private void btnpendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpendingActionPerformed
