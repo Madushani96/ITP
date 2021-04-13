@@ -1004,9 +1004,14 @@ String search = txtsearch.getText();
 public void calculateDOB() 
    {
         String nic = txtnic.getText();
+        
+         if(nic.equalsIgnoreCase("")){
+            
+        }else{
+              
         String ID = String.valueOf(nic.charAt(0) + String.valueOf(nic.charAt(1)));
         int Byear = Integer.valueOf(ID);
-
+        
         if (Byear > 50) 
         {
             ID = "19" + ID;
@@ -1050,7 +1055,9 @@ public void calculateDOB()
         DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
         bday = d.format(form);
         
-        }     
+        }  
+        
+        }
     }
 
     public boolean validateAdd(){
@@ -1088,8 +1095,12 @@ public void calculateDOB()
          
     public boolean validateFields(){
         
+        int nicx = 0;
         String nic = txtnic.getText();
         
+        if(nic.equalsIgnoreCase("")){
+        
+        }else{
         String nicn;
         char nic1 = nic.charAt(2);
         char nic2 = nic.charAt(3);
@@ -1101,8 +1112,8 @@ public void calculateDOB()
         sb.append(nic3);
         nicn = sb.toString();
         
-        int nicx =Integer.parseInt(nicn);  
-            
+         nicx =Integer.parseInt(nicn);  
+        }   
         String vname = "[a-z A-Z]+\\.?";
         String vphone = "^[0-9]{10}$";
         String vaddress = "[a-z A-Z 0-9 , / ,-]+\\.?";
@@ -1174,7 +1185,7 @@ public void calculateDOB()
                 try 
                 {
                     int l = Integer.valueOf(nic.substring(0, 9));
-                    System.out.println(l);
+                  //  System.out.println(l);
                 } 
                 catch (Exception e) 
                 {
