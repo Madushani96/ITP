@@ -74,6 +74,13 @@ public class Reading extends javax.swing.JInternalFrame {
         txtaddress = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -515,6 +522,14 @@ public class Reading extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnreturnActionPerformed
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        // TODO add your handli
+        
+        int a =  evt.getChanged().getWidth();
+       int b = evt.getChanged().getHeight();
+       this.setSize(a, b);
+    }//GEN-LAST:event_formAncestorResized
      
       private void SearchBook(){
          

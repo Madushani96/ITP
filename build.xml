@@ -39,6 +39,10 @@
                 <fileset dir="${build.classes.dir}"/>
             </obfuscate>
         </target>
+     <target name="retrievelibs" description="Retrieve dependencies with Apache Ivy">
+    <ivy:retrieve conf="compile, javaflow, test" pattern="dist/lib/[artifact](-[classifier])-[revision].[ext]"/>
+</target>
+
 
     For list of available properties check the imported 
     nbproject/build-impl.xml file. 

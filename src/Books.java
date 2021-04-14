@@ -29,12 +29,12 @@ public class Books extends javax.swing.JInternalFrame {
     public Books() {
         initComponents();
         conn = JDBC.ConnectDB();
+        loadTable();
         
          this.setBorder(null);
         BasicInternalFrameUI bui = (BasicInternalFrameUI)this.getUI();
         bui.setNorthPane(null);
         
-        loadTable();
     }
 
     /**
@@ -71,6 +71,13 @@ public class Books extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -343,8 +350,11 @@ public class Books extends javax.swing.JInternalFrame {
         try{
             
             String sql = "INSERT INTO `book`(`isbn`, `name`, `author`, `publisher`, `category`, `price`, `type`, `status`) VALUES('"+isbn+"','"+name+"','"+author+"','"+publisher+"','"+category+"','"+price+"','"+type+"','available')";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
             
             JOptionPane.showMessageDialog(rootPane, "Book Added Successfully!");
 
@@ -367,6 +377,10 @@ public class Books extends javax.swing.JInternalFrame {
             pst = conn.prepareStatement(sql);
             rs=pst.executeQuery();
             tblbooks.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+            
+            rs.close();
+            pst.close();
+            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -384,6 +398,9 @@ public class Books extends javax.swing.JInternalFrame {
             String sql ="DELETE FROM `book` WHERE isbn ='"+txtisbn.getText()+"'";
             pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
             
             JOptionPane.showMessageDialog(rootPane, "Successfully Deleted");
             loadTable();
@@ -430,6 +447,10 @@ public class Books extends javax.swing.JInternalFrame {
             String sql = "UPDATE `book` SET `name`='"+name+"',`author`='"+author+"',`publisher`='"+publisher+"',`category`='"+category+"',`price`='"+price+"',`type`='"+type+"' WHERE isbn = '"+isbn+"'";
             pst =conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
+            
             JOptionPane.showMessageDialog(rootPane, "Successfully Updated");
             loadTable();
             
@@ -443,6 +464,14 @@ public class Books extends javax.swing.JInternalFrame {
     private void combocategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combocategoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combocategoryActionPerformed
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+
+        int a =  evt.getChanged().getWidth();
+       int b = evt.getChanged().getHeight();
+       this.setSize(a, b);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formAncestorResized
 
       private void DeletedBooks(){
     
@@ -459,8 +488,11 @@ public class Books extends javax.swing.JInternalFrame {
         LocalDate today = LocalDate.now();
 
             String sql = "INSERT INTO `deletedbooks`(`isbn`, `name`, `author`, `publisher`, `category`, `price`, `type`, `status`, `deleteddate`) VALUES('"+isbn+"','"+name+"','"+author+"','"+publisher+"','"+category+"','"+price+"','"+type+"', (SELECT `status` FROM `book` WHERE isbn ='"+txtisbn.getText()+"'), '"+today+"')";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
                     
         }catch(Exception e){
             

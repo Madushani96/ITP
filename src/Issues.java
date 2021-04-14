@@ -22,19 +22,19 @@ public class Issues extends javax.swing.JInternalFrame {
     Connection conn ;
     PreparedStatement pst = null;
     ResultSet rs = null;
-
     /**
      * Creates new form Books
      */
     public Issues() {
+        
         initComponents();
         conn = JDBC.ConnectDB();
+        loadTable();
         
          this.setBorder(null);
         BasicInternalFrameUI bui = (BasicInternalFrameUI)this.getUI();
         bui.setNorthPane(null);
-        
-        loadTable();
+                
     }
 
     /**
@@ -74,6 +74,13 @@ public class Issues extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -106,7 +113,7 @@ public class Issues extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                    .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(19, 19, 19))
         );
@@ -379,21 +386,23 @@ public class Issues extends javax.swing.JInternalFrame {
         try{
             
             String sql = "INSERT INTO `issue`(`memberid`, `membername`, `isbn`, `bookname`, `issuedate`, `duedate`,`status`) VALUES('"+memberid+"','"+membername+"','"+isbn+"','"+bookname+"','"+issuedate+"','"+duedate+"','Issued')";            
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
             
+            rs.close();
+            pst.close();
+            
             JOptionPane.showMessageDialog(rootPane, "Book Issued Successfully!");
-
-        
+            
+             UpdateBooks();
+             UpdateMembers();
+             loadTable();
+                            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
         
-        }
-      UpdateBooks();
-      UpdateMembers();
-       loadTable();
-            
+        }         
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void loadTable(){
@@ -404,6 +413,10 @@ public class Issues extends javax.swing.JInternalFrame {
             pst = conn.prepareStatement(sql);
             rs=pst.executeQuery();
             tblissues.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+            
+            rs.close();
+            pst.close();
+            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -421,6 +434,9 @@ public class Issues extends javax.swing.JInternalFrame {
             String sql ="DELETE FROM `issue` WHERE isbn ='"+txtisbn.getText()+"' && memberid ='"+txtmemid.getText()+"'";
             pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
             
             JOptionPane.showMessageDialog(rootPane, "Successfully Deleted");
             loadTable();
@@ -469,6 +485,9 @@ public class Issues extends javax.swing.JInternalFrame {
             pst =conn.prepareStatement(sql);
             pst.execute();
             
+            rs.close();
+            pst.close();
+            
             JOptionPane.showMessageDialog(rootPane, "Successfully Updated");
             loadTable();
             
@@ -511,6 +530,13 @@ public class Issues extends javax.swing.JInternalFrame {
         SearchBook();
     }//GEN-LAST:event_btnbookgetActionPerformed
 
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+
+       int a =  evt.getChanged().getWidth();
+       int b = evt.getChanged().getHeight();
+       this.setSize(a, b);
+    }//GEN-LAST:event_formAncestorResized
+
      private void SearchMember(){
          
         try{
@@ -527,6 +553,9 @@ public class Issues extends javax.swing.JInternalFrame {
             else{
             JOptionPane.showMessageDialog(null, "Member Uneligible");
         }
+            
+            rs.close();
+            pst.close();
        
        
        }catch(Exception e){
@@ -535,7 +564,7 @@ public class Issues extends javax.swing.JInternalFrame {
        }
     }
      
-      private void SearchBook(){
+      public void SearchBook(){
          
         try{
             String id =txtisbn.getText();
@@ -552,6 +581,9 @@ public class Issues extends javax.swing.JInternalFrame {
             else{
             JOptionPane.showMessageDialog(null, "Book Unavailable");
         }
+            
+            rs.close();
+            pst.close();
        
        
        }catch(Exception e){
@@ -561,7 +593,7 @@ public class Issues extends javax.swing.JInternalFrame {
     }
       
       
-      private void UpdateBooks(){
+      public void UpdateBooks(){
       
       try{
           
@@ -569,18 +601,17 @@ public class Issues extends javax.swing.JInternalFrame {
           pst=(PreparedStatement) conn.prepareStatement(sql);
           pst.execute();
           
-         
-            loadTable();
-      
-      
+          rs.close();
+            pst.close();
+           
       }catch(Exception e){
       
           JOptionPane.showMessageDialog(rootPane, e);
       }
       
-      }
+  }
       
-       private void UpdateMembers(){
+       public void UpdateMembers(){
       
       try{
           
@@ -588,18 +619,17 @@ public class Issues extends javax.swing.JInternalFrame {
           pst=(PreparedStatement) conn.prepareStatement(sql);
           pst.execute();
           
+          rs.close();
+            pst.close();
           
-            loadTable();
-      
-      
       }catch(Exception e){
       
           JOptionPane.showMessageDialog(rootPane, e);
       }
       
-      }
+  }
        
-         private void DeletedIssues(){
+         public void DeletedIssues(){
     
       try{
           
@@ -614,8 +644,11 @@ public class Issues extends javax.swing.JInternalFrame {
         LocalDate today = LocalDate.now();
 
             String sql = "INSERT INTO `deletedissues`(`issueid`, `memberid`, `membername`, `isbn`, `bookname`, `issuedate`, `duedate`,`status`, `deleteddate`) VALUES((SELECT `issueid` FROM `issue` WHERE `isbn` = '"+txtisbn.getText()+"' && `memberid` = '"+txtmemid.getText()+"'),'"+memberid+"','"+membername+"','"+isbn+"','"+bookname+"','"+issuedate+"','"+duedate+"', (SELECT `status` FROM `issue` WHERE `isbn` = '"+txtisbn.getText()+"' && `memberid` = '"+txtmemid.getText()+"'), '"+today+"')";            
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
                     
         }catch(Exception e){
             

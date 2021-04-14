@@ -19,13 +19,13 @@ import javax.swing.UIManager;
  */
 public class Home extends javax.swing.JFrame {
 
-    Books bk = new Books();
-    Returns rt = new Returns();
-    Members mem = new Members();  
-    Issues is = new Issues();
-    Reading rd = new Reading();
-    Resources rs = new Resources();
-    
+    Issues is;  
+    Returns rt;
+    Members mem;
+    Books bk;
+    Resources rs;
+    Reading rd;
+     
     public Home() {
         initComponents();
         clock();
@@ -332,9 +332,10 @@ public class Home extends javax.swing.JFrame {
 
     private void btnbookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbookActionPerformed
         // TODO add your handling code here:
-       homedesktop.removeAll();  
+       homedesktop.removeAll(); 
+       bk = new Books();
        homedesktop.add(bk).setVisible(true);
-     //  bk.setSize(homedesktop.getWidth(), homedesktop.getHeight());
+     bk.setSize(homedesktop.getWidth(), homedesktop.getHeight());
        
     }//GEN-LAST:event_btnbookActionPerformed
 
@@ -342,39 +343,39 @@ public class Home extends javax.swing.JFrame {
     private void btnreturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreturnActionPerformed
         // TODO add your handling code here:
          homedesktop.removeAll();
+         rt = new Returns();
         homedesktop.add(rt).setVisible(true);
-       // rt.setSize(homedesktop.getWidth(), homedesktop.getHeight());
+       rt.setSize(homedesktop.getWidth(), homedesktop.getHeight());
               
     }//GEN-LAST:event_btnreturnActionPerformed
 
     private void btnmemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmemberActionPerformed
         // TODO add your handling code here:
        homedesktop.removeAll();
+       mem = new Members();
        homedesktop.add(mem).setVisible(true);
-      // mem.setSize(homedesktop.getWidth(), homedesktop.getHeight());
-               
+      mem.setSize(homedesktop.getWidth(), homedesktop.getHeight());
+        
     }//GEN-LAST:event_btnmemberActionPerformed
 
     private void btnissueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnissueActionPerformed
         // TODO add your handling code here:
         homedesktop.removeAll();
+        is = new Issues();
         homedesktop.add(is).setVisible(true);
-        // is.setSize(homedesktop.getWidth(), homedesktop.getHeight());
-        
+        is.setSize(homedesktop.getWidth(), homedesktop.getHeight());
     }//GEN-LAST:event_btnissueActionPerformed
 
     private void homedesktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_homedesktopComponentResized
-
-        // TODO add your handling code here:
     
-    if (evt.getSource() == homedesktop) {
-    is.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
+  /*if (evt.getSource() == homedesktop) {
+   // is.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     bk.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     rt.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     mem.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     rd.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
     rs.setBounds(0, 0, homedesktop.getWidth(), homedesktop.getHeight());
-}
+}*/
 
         
     }//GEN-LAST:event_homedesktopComponentResized
@@ -382,9 +383,10 @@ public class Home extends javax.swing.JFrame {
     private void btnreadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreadActionPerformed
         // TODO add your handling code here:
         
-       homedesktop.removeAll();  
+       homedesktop.removeAll(); 
+       rd = new Reading();
        homedesktop.add(rd).setVisible(true);
-      // rd.setSize(homedesktop.getWidth(), homedesktop.getHeight());
+      rd.setSize(homedesktop.getWidth(), homedesktop.getHeight());
     }//GEN-LAST:event_btnreadActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -407,7 +409,9 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         
        homedesktop.removeAll();  
+       rs = new Resources();
        homedesktop.add(rs).setVisible(true);
+       rs.setSize(homedesktop.getWidth(), homedesktop.getHeight());
     }//GEN-LAST:event_btnresActionPerformed
 
     /**
