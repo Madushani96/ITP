@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +22,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import sun.misc.Unsafe;
 /*
@@ -882,9 +886,7 @@ String search = txtsearch.getText();
           
         String memberid = txtid.getText();
         int count = 0;
-      
-        
-        
+              
          try
         {
          
@@ -913,10 +915,10 @@ String search = txtsearch.getText();
         }
         else{
        
-            try{ 
+           try{ 
 
               JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\BorrowHistory.jrxml");
-              String sql ="SELECT `isbn`, `bookname`, `issuedate`, `returndate`, `fine` FROM `return` where memberid = '"+memberid+"'";
+              String sql ="select m.`memberid`, m.`name`, m.`status`, m.`registereddate`, r.`isbn`, r.`bookname`, r.`issuedate`, r.`returndate`, r.`fine` from `member` m, `return` r where m.`memberid` = r.`memberid`";
               JRDesignQuery newQuery = new JRDesignQuery();
               newQuery.setText(sql);
               jasdi.setQuery(newQuery);
@@ -930,7 +932,7 @@ String search = txtsearch.getText();
                  JOptionPane.showMessageDialog(rootPane, e);
 
              }
-            
+                  
         }
      
     }//GEN-LAST:event_btnhistoryActionPerformed
