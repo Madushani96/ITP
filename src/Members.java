@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,7 +41,7 @@ public class Members extends javax.swing.JInternalFrame {
     Connection conn ;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    String bday, gen;
+    String bday, gen, mo;
 
     /**
      * Creates new form Members
@@ -50,6 +51,7 @@ public class Members extends javax.swing.JInternalFrame {
         conn = JDBC.ConnectDB();
         autoId();
         loadTable();
+        changeIssueStatus();
         
         this.setBorder(null);
         BasicInternalFrameUI bui = (BasicInternalFrameUI)this.getUI();
@@ -855,7 +857,7 @@ String search = txtsearch.getText();
                 try {
 
                         String sql = "SELECT `memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type` FROM `member` WHERE `memberid` LIKE '%" + search + "%' "
-                            + "OR `name` LIKE '"+search+"%' OR `nic` LIKE '"+search+"%'";
+                            + "OR `name` LIKE '%"+search+"%' OR `nic` LIKE '%"+search+"%'";
                         
                         pst = conn.prepareStatement(sql);
                          rs=pst.executeQuery();
@@ -938,8 +940,55 @@ String search = txtsearch.getText();
     }//GEN-LAST:event_btnhistoryActionPerformed
 
     private void btnpendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpendingActionPerformed
-        // TODO add your handling code here:
+      
+      String month ="";
+       
+      if("01".equals(mo)){  
+          month = "January";
+      }else if("02".equals(mo)){
+           month = "February";
+      }else if("03".equals(mo)){
+           month = "March";
+      }else if("04".equals(mo)){
+           month = "April";
+      }else if("05".equals(mo)){
+           month = "May";
+      }else if("06".equals(mo)){
+           month = "June";
+      }else if("07".equals(mo)){
+           month = "July";
+      }else if("08".equals(mo)){
+           month = "August";
+      }else if("09".equals(mo)){
+           month = "September";
+      }else if("10".equals(mo)){
+           month = "October";
+      }else if("11".equals(mo)){
+           month = "November";
+      }else if("12".equals(mo)){
+           month = "December";
+      }
         
+        try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\MonthlyPending.jrxml");
+              String sql ="SELECT m.`memberid`, m.`name`, i .`bookname`, i.`issuedate`, i.`duedate`, m.`telephone`, m.`address` FROM `member` m,  `issue` i  WHERE i.`status` = 'contact' and m.`memberid` = i.`memberid`";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              
+              HashMap<String, Object> para = new HashMap<>();
+              para.put("month", month);
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
+              JasperViewer.viewReport(jp);
+             // JasperViewer jv = new JasperViewer( jp, false );
+              //jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
          
     }//GEN-LAST:event_btnpendingActionPerformed
 
@@ -1339,6 +1388,48 @@ public void calculateDOB()
             }
             return true;
         }
+    }
+    
+    public void changeIssueStatus(){
+        
+        LocalDate today = LocalDate.now();
+        
+       int month = today.getMonthValue();
+       int year = today.getYear();
+       
+        switch (month) {
+            case 1 -> {
+                month = 11;
+                year = year - 1;
+            }
+            case 2 -> {
+                month = 12;
+                year = year -1;
+            }
+            default -> month = month - 2;
+        }
+        
+        mo = String.format("%02d", month);
+        
+        String ym = year+"-"+mo;
+        
+        try
+                {
+                   
+                    String sql = "UPDATE `issue` SET `status`= 'contact' WHERE `issuedate` LIKE '%"+ym+"%' and status = 'Issued'";
+                    pst =conn.prepareStatement(sql);
+                    pst.execute();
+                    
+                    rs.close();
+                    pst.close();
+                    
+                }
+                catch (Exception e)
+                {
+                          JOptionPane.showMessageDialog(null, "Failed" + e);
+                }
+        
+    
     }
 
 

@@ -35,6 +35,9 @@ public class Returns extends javax.swing.JInternalFrame {
         bui.setNorthPane(null);
         
         loadTable();
+        
+        datereturn.setDateFormatString("yyyy-MM-dd");
+
     }
 
     /**

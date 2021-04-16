@@ -3,7 +3,11 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +34,8 @@ public class Issues extends javax.swing.JInternalFrame {
         initComponents();
         conn = JDBC.ConnectDB();
         loadTable();
+        dateissue.setDateFormatString("yyyy-MM-dd");
+        datedue.setDateFormatString("yyyy-MM-dd");
         
          this.setBorder(null);
         BasicInternalFrameUI bui = (BasicInternalFrameUI)this.getUI();
@@ -382,7 +388,7 @@ public class Issues extends javax.swing.JInternalFrame {
         String bookname = txtbookname.getText();
         String issuedate = ((JTextField)dateissue.getDateEditor().getUiComponent()).getText();
         String duedate = ((JTextField)datedue.getDateEditor().getUiComponent()).getText();
-
+        
         try{
             
             String sql = "INSERT INTO `issue`(`memberid`, `membername`, `isbn`, `bookname`, `issuedate`, `duedate`,`status`) VALUES('"+memberid+"','"+membername+"','"+isbn+"','"+bookname+"','"+issuedate+"','"+duedate+"','Issued')";            
