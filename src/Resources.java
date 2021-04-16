@@ -77,6 +77,13 @@ public class Resources extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -585,6 +592,14 @@ public class Resources extends javax.swing.JInternalFrame {
 
         
     }//GEN-LAST:event_tblre2MouseClicked
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+
+
+int a =  evt.getChanged().getWidth();
+       int b = evt.getChanged().getHeight();
+       this.setSize(a, b);        // TODO add your handling code here:
+    }//GEN-LAST:event_formAncestorResized
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnadd;

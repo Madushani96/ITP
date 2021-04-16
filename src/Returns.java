@@ -35,6 +35,9 @@ public class Returns extends javax.swing.JInternalFrame {
         bui.setNorthPane(null);
         
         loadTable();
+        
+        datereturn.setDateFormatString("yyyy-MM-dd");
+
     }
 
     /**
@@ -77,6 +80,13 @@ public class Returns extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -350,7 +360,7 @@ public class Returns extends javax.swing.JInternalFrame {
                 .addComponent(btncalculate)
                 .addGap(122, 122, 122))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 28, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel8)
@@ -429,21 +439,25 @@ public class Returns extends javax.swing.JInternalFrame {
             
             String sql = "INSERT INTO `return`(`issueid`, `memberid`, `membername`, `isbn`, `bookname`, `issuedate`, `duedate`,`returndate` , `fine`) VALUES('"+issueid+"','"+memberid+"','"+membername+"','"+isbn+"','"+bookname+"','"+issuedate+"','"+duedate+"','"+returndate+"','"+fine+"')";
             
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
             
             JOptionPane.showMessageDialog(rootPane, "Book Retured Successfully!");
 
+            UpdateMembers();
+            UpdateBooks();
+            UpdateIssues();
+            loadTable();
         
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
         
         }
-       UpdateMembers();
-       UpdateBooks();
-       UpdateIssues();
-       loadTable();
+      
             
     }//GEN-LAST:event_btnaddActionPerformed
 
@@ -455,6 +469,10 @@ public class Returns extends javax.swing.JInternalFrame {
             pst = conn.prepareStatement(sql);
             rs=pst.executeQuery();
             tblreturns.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+            
+            rs.close();
+            pst.close();
+            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -472,6 +490,9 @@ public class Returns extends javax.swing.JInternalFrame {
             String sql ="DELETE FROM `return` WHERE issueid ='"+txtissueid.getText()+"'";
             pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
             
             JOptionPane.showMessageDialog(rootPane, "Successfully Deleted");
             loadTable();
@@ -516,6 +537,10 @@ public class Returns extends javax.swing.JInternalFrame {
             String sql = "UPDATE `return` SET `returndate`='"+returndate+"',`fine`='"+fine+"' WHERE issueid ='"+txtissueid.getText()+"'";
             pst =conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
+            
             JOptionPane.showMessageDialog(rootPane, "Successfully Updated");
             loadTable();
             
@@ -576,6 +601,15 @@ public class Returns extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtissueidActionPerformed
 
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        // TODO add your handling code here:
+        int a =  evt.getChanged().getWidth();
+       int b = evt.getChanged().getHeight();
+       this.setSize(a, b);
+        
+        
+    }//GEN-LAST:event_formAncestorResized
+
      public void GetDetails(){
          
         try{
@@ -593,6 +627,9 @@ public class Returns extends javax.swing.JInternalFrame {
             txtissuedate.setText(rs.getString("issuedate"));
             txtduedate.setText(rs.getString("duedate"));
             txtissueid.setText(rs.getString("issueid"));
+            
+            rs.close();
+            pst.close();
         }
             else{
             JOptionPane.showMessageDialog(null, "Incorrect Details");
@@ -613,6 +650,9 @@ public class Returns extends javax.swing.JInternalFrame {
           pst=(PreparedStatement) conn.prepareStatement(sql);
           pst.execute();
           
+          rs.close();
+            pst.close();
+          
          
             loadTable();
       
@@ -632,6 +672,9 @@ public class Returns extends javax.swing.JInternalFrame {
           pst=(PreparedStatement) conn.prepareStatement(sql);
           pst.execute();
           
+          rs.close();
+            pst.close();
+          
           
             loadTable();
       
@@ -650,6 +693,9 @@ public class Returns extends javax.swing.JInternalFrame {
           String sql = "UPDATE `issue` SET `status` = 'returned' WHERE issueid = '"+txtissueid.getText()+"'";
           pst=(PreparedStatement) conn.prepareStatement(sql);
           pst.execute();
+          
+          rs.close();
+            pst.close();
           
           
             loadTable();
@@ -681,8 +727,11 @@ public class Returns extends javax.swing.JInternalFrame {
         LocalDate today = LocalDate.now();
 
             String sql = "INSERT INTO `deletedreturns`(`returnid`, `issueid`, `memberid`, `membername`, `isbn`, `bookname`, `issuedate`, `duedate`,`returndate` , `fine`, `deleteddate`) VALUES((SELECT `returnid` FROM `return` WHERE `issueid` = '"+issueid+"'),'"+issueid+"','"+memberid+"','"+membername+"','"+isbn+"','"+bookname+"','"+issuedate+"','"+duedate+"','"+returndate+"','"+fine+"','"+today+"')";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
                     
         }catch(Exception e){
             

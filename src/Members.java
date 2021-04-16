@@ -1,4 +1,5 @@
 
+import java.lang.reflect.Field;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +7,12 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +23,9 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import sun.misc.Unsafe;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,7 +41,7 @@ public class Members extends javax.swing.JInternalFrame {
     Connection conn ;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    String bday, gen;
+    String bday, gen, mo;
 
     /**
      * Creates new form Members
@@ -42,15 +49,13 @@ public class Members extends javax.swing.JInternalFrame {
     public Members() {
         initComponents();
         conn = JDBC.ConnectDB();
-        
-         this.setBorder(null);
-        BasicInternalFrameUI bui = (BasicInternalFrameUI)this.getUI();
-        bui.setNorthPane(null);
-        
         autoId();
         loadTable();
+        changeIssueStatus();
         
-        
+        this.setBorder(null);
+        BasicInternalFrameUI bui = (BasicInternalFrameUI)this.getUI();
+        bui.setNorthPane(null);       
     }
 
     /**
@@ -107,6 +112,13 @@ public class Members extends javax.swing.JInternalFrame {
 
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(898, 487));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -147,15 +159,15 @@ public class Members extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                    .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                    .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(9, 9, 9)
                 .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,6 +191,7 @@ public class Members extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         jLabel7.setText("NIC");
 
+        txtid.setEditable(false);
         txtid.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtid.setPreferredSize(new java.awt.Dimension(180, 50));
         txtid.addActionListener(new java.awt.event.ActionListener() {
@@ -489,14 +502,14 @@ public class Members extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnclear, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(btnclear, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnhistory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnhistory.setText("History");
+        btnhistory.setText("   History");
         btnhistory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnhistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,7 +518,7 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btnpending.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnpending.setText("Pending");
+        btnpending.setText("   Pending");
         btnpending.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnpending.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -514,7 +527,7 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btnmonthly.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        btnmonthly.setText("Monthly Report");
+        btnmonthly.setText("   Monthly");
         btnmonthly.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnmonthly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -523,6 +536,7 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
         jLabel3.setText("Reports");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -534,25 +548,22 @@ public class Members extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnhistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnpending, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnmonthly, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                    .addComponent(btnmonthly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(30, 30, 30))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnhistory, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnhistory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnpending, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnmonthly, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addComponent(btnpending, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnmonthly, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -562,18 +573,20 @@ public class Members extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +600,7 @@ public class Members extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(19, 19, 19)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -617,8 +630,11 @@ public class Members extends javax.swing.JInternalFrame {
              if (validateFields() && validateAdd()){
             
             String sql = "INSERT INTO `member`(`memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`,`status`,`registereddate`) VALUES('"+memberid+"','"+name+"','"+nic+"','"+birthday+"','"+gender+"','"+occupation+"','"+telephone+"','"+address+"','"+type+"','eligible','"+today+"')";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
             
             JOptionPane.showMessageDialog(rootPane, "Member Added Successfully!");
             
@@ -634,7 +650,7 @@ public class Members extends javax.swing.JInternalFrame {
        loadTable();
             
     }//GEN-LAST:event_btnaddActionPerformed
-
+    
     private void loadTable(){
     
         try{
@@ -643,6 +659,9 @@ public class Members extends javax.swing.JInternalFrame {
             pst = conn.prepareStatement(sql);
             rs=pst.executeQuery();
             tblmems.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+            
+            rs.close();
+            pst.close();
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -674,6 +693,9 @@ public class Members extends javax.swing.JInternalFrame {
                 txtid.setText("MI1000");
             
             }
+            
+            rs.close();
+            pst.close();
         
         }catch(Exception e){
         
@@ -716,7 +738,10 @@ public class Members extends javax.swing.JInternalFrame {
                     String sql ="DELETE FROM `member` WHERE memberid ='"+txtid.getText()+"'";
                     pst = conn.prepareStatement(sql);
                     pst.execute();
-
+                    
+                    rs.close();
+                    pst.close();
+                    
                     JOptionPane.showMessageDialog(rootPane, "Successfully Deleted");
                     loadTable();
 
@@ -781,6 +806,9 @@ public class Members extends javax.swing.JInternalFrame {
                     String sql = "UPDATE `member` SET `name`='"+name+"',`nic`='"+nic+"',`birthday`='"+birthday+"',`gender`='"+gender+"',`occupation`='"+occupation+"',`telephone`='"+telephone+"',`address`='"+address+"',`type`='"+type+"' WHERE memberid = '"+memberid+"'";
                     pst =conn.prepareStatement(sql);
                     pst.execute();
+                    
+                    rs.close();
+                    pst.close();
                     JOptionPane.showMessageDialog(rootPane, "Successfully Updated");
                     }
                 }
@@ -829,11 +857,14 @@ String search = txtsearch.getText();
                 try {
 
                         String sql = "SELECT `memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type` FROM `member` WHERE `memberid` LIKE '%" + search + "%' "
-                            + "OR `name` LIKE '"+search+"%' OR `nic` LIKE '"+search+"%'";
+                            + "OR `name` LIKE '%"+search+"%' OR `nic` LIKE '%"+search+"%'";
                         
                         pst = conn.prepareStatement(sql);
                          rs=pst.executeQuery();
                          tblmems.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+                         
+                         rs.close();
+                         pst.close();
                                              
             } catch (Exception e) {
                    
@@ -854,28 +885,110 @@ String search = txtsearch.getText();
 
     private void btnhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhistoryActionPerformed
         // TODO add your handling code here:
-           
-    /* try{  
-       JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\History.jrxml");
-       String sql ="SELECT `isbn`, `bookname`, `issuedate`, `returndate`, `fine` FROM `return`";
-       JRDesignQuery newQuery = new JRDesignQuery();
-       newQuery.setText(sql);
-       jasdi.setQuery(newQuery);
-       JasperReport js = JasperCompileManager.compileReport(jasdi);
-       JasperPrint jp = JasperFillManager.fillReport(js,null, conn);
-       //JasperViewer.viewReport(jp);
-       JasperViewer jv = new JasperViewer( jp, false );
-       jv.viewReport( jp, false );
-      }catch(Exception e){
-      
-          JOptionPane.showMessageDialog(rootPane, e);
-        
-      }*/
+          
+        String memberid = txtid.getText();
+        int count = 0;
+              
+         try
+        {
+         
+              String sql="SELECT count(memberid) FROM `return` where memberid = '"+memberid+"'";
+            
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+                if (rs.next())
+                {
+                   count = rs.getInt("count(memberid)");                          
+               }
+                
+              rs.close();
+              pst.close();
+              
+            } 
+        catch (Exception e) 
+        {
+                
+            JOptionPane.showMessageDialog(null, "Failed" + e);
+        }
+             
+        if(count == 0){
+            
+            JOptionPane.showMessageDialog(null, "No records of history for this member");
+        }
+        else{
+       
+           try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\BorrowHistory.jrxml");
+              String sql ="select m.`memberid`, m.`name`, m.`status`, m.`registereddate`, r.`isbn`, r.`bookname`, r.`issuedate`, r.`returndate`, r.`fine` from `member` m, `return` r where m.`memberid` = r.`memberid`";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,null, conn);
+              //JasperViewer.viewReport(jp);
+              JasperViewer jv = new JasperViewer( jp, false );
+              jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
+                  
+        }
+     
     }//GEN-LAST:event_btnhistoryActionPerformed
 
     private void btnpendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpendingActionPerformed
-        // TODO add your handling code here:
+      
+      String month ="";
+       
+      if("01".equals(mo)){  
+          month = "January";
+      }else if("02".equals(mo)){
+           month = "February";
+      }else if("03".equals(mo)){
+           month = "March";
+      }else if("04".equals(mo)){
+           month = "April";
+      }else if("05".equals(mo)){
+           month = "May";
+      }else if("06".equals(mo)){
+           month = "June";
+      }else if("07".equals(mo)){
+           month = "July";
+      }else if("08".equals(mo)){
+           month = "August";
+      }else if("09".equals(mo)){
+           month = "September";
+      }else if("10".equals(mo)){
+           month = "October";
+      }else if("11".equals(mo)){
+           month = "November";
+      }else if("12".equals(mo)){
+           month = "December";
+      }
         
+        try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\MonthlyPending.jrxml");
+              String sql ="SELECT m.`memberid`, m.`name`, i .`bookname`, i.`issuedate`, i.`duedate`, m.`telephone`, m.`address` FROM `member` m,  `issue` i  WHERE i.`status` = 'contact' and m.`memberid` = i.`memberid`";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              
+              HashMap<String, Object> para = new HashMap<>();
+              para.put("month", month);
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
+              JasperViewer.viewReport(jp);
+             // JasperViewer jv = new JasperViewer( jp, false );
+              //jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
          
     }//GEN-LAST:event_btnpendingActionPerformed
 
@@ -934,6 +1047,9 @@ String search = txtsearch.getText();
             rs=pst.executeQuery();
             tblmems.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
             
+            rs.close();
+            pst.close();
+            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -949,6 +1065,9 @@ String search = txtsearch.getText();
             rs=pst.executeQuery();
             tblmems.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
             
+            rs.close();
+            pst.close();
+            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -963,6 +1082,9 @@ String search = txtsearch.getText();
             rs=pst.executeQuery();
             tblmems.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
             
+            rs.close();
+            pst.close();
+            
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(rootPane, e);
@@ -973,6 +1095,14 @@ String search = txtsearch.getText();
             
             
     }//GEN-LAST:event_combostatusActionPerformed
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        // TODO add
+        
+  int a =  evt.getChanged().getWidth();
+       int b = evt.getChanged().getHeight();
+       this.setSize(a, b);
+    }//GEN-LAST:event_formAncestorResized
 
       private void DeletedMembers(){
     
@@ -991,8 +1121,11 @@ String search = txtsearch.getText();
         LocalDate today = LocalDate.now();
 
             String sql = "INSERT INTO `deletedmember`(`memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`,`status`,`registereddate`, `deleteddate`) VALUES('"+memberid+"','"+name+"','"+nic+"','"+birthday+"','"+gender+"','"+occupation+"','"+telephone+"','"+address+"','"+type+"',(SELECT `status` FROM `member` WHERE `memberid` = '"+memberid+"'), (SELECT `registereddate` FROM `member` WHERE `memberid` = '"+memberid+"'), '"+today+"')";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.execute();
+            
+            rs.close();
+            pst.close();
                     
         }catch(Exception e){
             
@@ -1004,9 +1137,14 @@ String search = txtsearch.getText();
 public void calculateDOB() 
    {
         String nic = txtnic.getText();
+        
+         if(nic.equalsIgnoreCase("")){
+            
+        }else{
+              
         String ID = String.valueOf(nic.charAt(0) + String.valueOf(nic.charAt(1)));
         int Byear = Integer.valueOf(ID);
-
+        
         if (Byear > 50) 
         {
             ID = "19" + ID;
@@ -1050,7 +1188,9 @@ public void calculateDOB()
         DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
         bday = d.format(form);
         
-        }     
+        }  
+        
+        }
     }
 
     public boolean validateAdd(){
@@ -1070,6 +1210,9 @@ public void calculateDOB()
                     exist = rs.getString("nic");
                 
                 }
+                
+              rs.close();
+              pst.close();
             } 
         catch (Exception e) 
         {
@@ -1088,8 +1231,12 @@ public void calculateDOB()
          
     public boolean validateFields(){
         
+        int nicx = 0;
         String nic = txtnic.getText();
         
+        if(nic.equalsIgnoreCase("")){
+        
+        }else{
         String nicn;
         char nic1 = nic.charAt(2);
         char nic2 = nic.charAt(3);
@@ -1101,8 +1248,8 @@ public void calculateDOB()
         sb.append(nic3);
         nicn = sb.toString();
         
-        int nicx =Integer.parseInt(nicn);  
-            
+         nicx =Integer.parseInt(nicn);  
+        }   
         String vname = "[a-z A-Z]+\\.?";
         String vphone = "^[0-9]{10}$";
         String vaddress = "[a-z A-Z 0-9 , / ,-]+\\.?";
@@ -1174,7 +1321,7 @@ public void calculateDOB()
                 try 
                 {
                     int l = Integer.valueOf(nic.substring(0, 9));
-                    System.out.println(l);
+                  //  System.out.println(l);
                 } 
                 catch (Exception e) 
                 {
@@ -1241,6 +1388,48 @@ public void calculateDOB()
             }
             return true;
         }
+    }
+    
+    public void changeIssueStatus(){
+        
+        LocalDate today = LocalDate.now();
+        
+       int month = today.getMonthValue();
+       int year = today.getYear();
+       
+        switch (month) {
+            case 1 -> {
+                month = 11;
+                year = year - 1;
+            }
+            case 2 -> {
+                month = 12;
+                year = year -1;
+            }
+            default -> month = month - 2;
+        }
+        
+        mo = String.format("%02d", month);
+        
+        String ym = year+"-"+mo;
+        
+        try
+                {
+                   
+                    String sql = "UPDATE `issue` SET `status`= 'contact' WHERE `issuedate` LIKE '%"+ym+"%' and status = 'Issued'";
+                    pst =conn.prepareStatement(sql);
+                    pst.execute();
+                    
+                    rs.close();
+                    pst.close();
+                    
+                }
+                catch (Exception e)
+                {
+                          JOptionPane.showMessageDialog(null, "Failed" + e);
+                }
+        
+    
     }
 
 
