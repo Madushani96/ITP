@@ -1,5 +1,4 @@
 
-import java.lang.reflect.Field;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,13 +7,9 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -23,9 +18,8 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
-import sun.misc.Unsafe;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -105,8 +99,9 @@ public class Members extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         btnhistory = new javax.swing.JButton();
         btnpending = new javax.swing.JButton();
-        btnmonthly = new javax.swing.JButton();
+        btnall = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btndeleted = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -459,7 +454,7 @@ public class Members extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(combostatus, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,7 +504,7 @@ public class Members extends javax.swing.JInternalFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnhistory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnhistory.setText("   History");
+        btnhistory.setText("Borrow History");
         btnhistory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnhistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,7 +513,7 @@ public class Members extends javax.swing.JInternalFrame {
         });
 
         btnpending.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnpending.setText("   Pending");
+        btnpending.setText("Pending Members");
         btnpending.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnpending.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,18 +521,27 @@ public class Members extends javax.swing.JInternalFrame {
             }
         });
 
-        btnmonthly.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        btnmonthly.setText("   Monthly");
-        btnmonthly.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnmonthly.addActionListener(new java.awt.event.ActionListener() {
+        btnall.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnall.setText("All Members");
+        btnall.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnmonthlyActionPerformed(evt);
+                btnallActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
         jLabel3.setText("Reports");
+
+        btndeleted.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btndeleted.setText("Deleted Members");
+        btndeleted.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btndeleted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeletedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -548,22 +552,25 @@ public class Members extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnhistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnpending, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnmonthly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                    .addComponent(btnall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                    .addComponent(btndeleted, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnhistory, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnpending, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnmonthly, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btnall, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btndeleted, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -600,7 +607,7 @@ public class Members extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -727,6 +734,9 @@ public class Members extends javax.swing.JInternalFrame {
  
         if (row != -1) 
         {
+            String verify = tblmems.getValueAt(tblmems.getSelectedRow(), 9).toString();
+          
+            if("eligible".equals(verify)){
         
             int confirm = JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Delete", JOptionPane.YES_NO_OPTION); 
             if (confirm == 0) 
@@ -752,6 +762,12 @@ public class Members extends javax.swing.JInternalFrame {
                 }
               clearField();
               autoId();
+            }
+            
+            }else{
+                
+                JOptionPane.showMessageDialog(null, "You can't delete members whose status is 'borrowed'");
+            
             }
         }
         else
@@ -887,18 +903,22 @@ String search = txtsearch.getText();
         // TODO add your handling code here:
           
         String memberid = txtid.getText();
+        String name = "";
+        String rdate = "";
+        String status = "";
         int count = 0;
               
          try
         {
          
-              String sql="SELECT count(memberid) FROM `return` where memberid = '"+memberid+"'";
+              String sql="SELECT count(i.memberid) AS mcount FROM issue i LEFT JOIN `return` r ON i.`issueid` = r.`issueid` where i.memberid = '"+memberid+"'";
             
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
                 if (rs.next())
                 {
-                   count = rs.getInt("count(memberid)");                          
+                   count = rs.getInt("mcount"); 
+                  // count++;
                }
                 
               rs.close();
@@ -916,17 +936,48 @@ String search = txtsearch.getText();
             JOptionPane.showMessageDialog(null, "No records of history for this member");
         }
         else{
+            
+            try{
+                
+                String sql= "SELECT `name`, `registereddate`,`status` FROM `member` where memberid = '"+memberid+"'";
+            
+                pst = conn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                
+                    while (rs.next())
+                    {
+                      
+                       name = rs.getString("name");
+                       rdate = rs.getString("registereddate");
+                       status = rs.getString("status");
+                   }
+
+                  rs.close();
+                  pst.close();
+            
+            
+            }catch(Exception e){
+            
+                JOptionPane.showMessageDialog(rootPane, e);
+            }
        
            try{ 
 
               JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\BorrowHistory.jrxml");
-              String sql ="select m.`memberid`, m.`name`, m.`status`, m.`registereddate`, r.`isbn`, r.`bookname`, r.`issuedate`, r.`returndate`, r.`fine` from `member` m, `return` r where m.`memberid` = r.`memberid`";
+              String sql ="SELECT i.`isbn`, i.`bookname`,i.`issuedate`,i.`duedate`, r.`returndate`,r.`fine` FROM `issue` i LEFT JOIN `return`r ON i.`issueid` = r.`issueid` WHERE i.`memberid`= '"+memberid+"' ORDER BY i.`issuedate` asc";
               JRDesignQuery newQuery = new JRDesignQuery();
               newQuery.setText(sql);
               jasdi.setQuery(newQuery);
+              
+              HashMap<String, Object> para = new HashMap<>();
+              para.put("id", memberid);
+              para.put("name", name);
+              para.put("date", rdate);
+              para.put("status", status);
+              
               JasperReport js = JasperCompileManager.compileReport(jasdi);
-              JasperPrint jp = JasperFillManager.fillReport(js,null, conn);
-              //JasperViewer.viewReport(jp);
+              JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
+             // JasperViewer.viewReport(jp);
               JasperViewer jv = new JasperViewer( jp, false );
               jv.viewReport( jp, false );
              }catch(Exception e){
@@ -943,36 +994,27 @@ String search = txtsearch.getText();
       
       String month ="";
        
-      if("01".equals(mo)){  
-          month = "January";
-      }else if("02".equals(mo)){
-           month = "February";
-      }else if("03".equals(mo)){
-           month = "March";
-      }else if("04".equals(mo)){
-           month = "April";
-      }else if("05".equals(mo)){
-           month = "May";
-      }else if("06".equals(mo)){
-           month = "June";
-      }else if("07".equals(mo)){
-           month = "July";
-      }else if("08".equals(mo)){
-           month = "August";
-      }else if("09".equals(mo)){
-           month = "September";
-      }else if("10".equals(mo)){
-           month = "October";
-      }else if("11".equals(mo)){
-           month = "November";
-      }else if("12".equals(mo)){
-           month = "December";
-      }
+      if(null != mo)switch (mo) {
+            case "01" -> month = "January";
+            case "02" -> month = "February";
+            case "03" -> month = "March";
+            case "04" -> month = "April";
+            case "05" -> month = "May";
+            case "06" -> month = "June";
+            case "07" -> month = "July";
+            case "08" -> month = "August";
+            case "09" -> month = "September";
+            case "10" -> month = "October";
+            case "11" -> month = "November";
+            case "12" -> month = "December";
+            default -> {
+          }
+        }
         
         try{ 
 
               JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\MonthlyPending.jrxml");
-              String sql ="SELECT m.`memberid`, m.`name`, i .`bookname`, i.`issuedate`, i.`duedate`, m.`telephone`, m.`address` FROM `member` m,  `issue` i  WHERE i.`status` = 'contact' and m.`memberid` = i.`memberid`";
+              String sql ="SELECT m.`memberid`, m.`name`, i .`bookname`, i.`issuedate`, i.`duedate`, m.`telephone`, m.`address` FROM `member` m,  `issue` i  WHERE i.`status` = 'contact' and m.`memberid` = i.`memberid` ORDER BY i.`issuedate` ASC";
               JRDesignQuery newQuery = new JRDesignQuery();
               newQuery.setText(sql);
               jasdi.setQuery(newQuery);
@@ -981,9 +1023,9 @@ String search = txtsearch.getText();
               para.put("month", month);
               JasperReport js = JasperCompileManager.compileReport(jasdi);
               JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
-              JasperViewer.viewReport(jp);
-             // JasperViewer jv = new JasperViewer( jp, false );
-              //jv.viewReport( jp, false );
+             // JasperViewer.viewReport(jp);
+              JasperViewer jv = new JasperViewer( jp, false );
+              jv.viewReport( jp, false );
              }catch(Exception e){
 
                  JOptionPane.showMessageDialog(rootPane, e);
@@ -992,11 +1034,32 @@ String search = txtsearch.getText();
          
     }//GEN-LAST:event_btnpendingActionPerformed
 
-    private void btnmonthlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmonthlyActionPerformed
+    private void btnallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnallActionPerformed
         // TODO add your handling code here:
         
+          try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\AllMembers.jrxml");
+              String sql ="select `memberid`, `name`,`nic`, `birthday`,`gender`, `occupation`, `type`, `status`, `telephone`, `address`,`registereddate` from `member` order by `memberid` ASC";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              
+            //  HashMap<String, Object> para = new HashMap<>();
+            //  para.put("month", month);
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,null, conn);
+             // JasperViewer.viewReport(jp);
+              JasperViewer jv = new JasperViewer( jp, false );
+              jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
+        
          
-    }//GEN-LAST:event_btnmonthlyActionPerformed
+    }//GEN-LAST:event_btnallActionPerformed
 
     private void txtnicKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnicKeyReleased
 
@@ -1103,6 +1166,68 @@ String search = txtsearch.getText();
        int b = evt.getChanged().getHeight();
        this.setSize(a, b);
     }//GEN-LAST:event_formAncestorResized
+
+    private void btndeletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletedActionPerformed
+        // TODO add your handling code here:
+                LocalDate today = LocalDate.now();
+        
+       int month = today.getMonthValue();
+       int year = today.getYear();
+       String mont = "";
+        switch (month) {
+            case 1 -> {
+                month = 12;
+                year = year - 1;
+            }
+            
+            default -> month = month - 1;
+        }
+        
+     String  mon = String.format("%02d", month);
+     String ym = year+"-"+mon;
+       
+       if(null != mon)switch (mon) {
+            case "01" -> mont = "January";
+            case "02" -> mont = "February";
+            case "03" -> mont = "March";
+            case "04" -> mont = "April";
+            case "05" -> mont = "May";
+            case "06" -> mont = "June";
+            case "07" -> mont = "July";
+            case "08" -> mont = "August";
+            case "09" -> mont = "September";
+            case "10" -> mont = "October";
+            case "11" -> mont = "November";
+            case "12" -> mont = "December";
+            default -> {
+                    }
+        }
+       
+       try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\DeletedMembers.jrxml");
+              String sql ="SELECT * FROM `deletedmember` WHERE `deleteddate`LIKE '%" +ym+ "%' ";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              
+              HashMap<String, Object> para = new HashMap<>();
+              para.put("month", mont);
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
+             // JasperViewer.viewReport(jp);
+              JasperViewer jv = new JasperViewer( jp, false );
+              jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
+       
+       
+        
+        
+    }//GEN-LAST:event_btndeletedActionPerformed
 
       private void DeletedMembers(){
     
@@ -1437,10 +1562,11 @@ public void calculateDOB()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnadd;
+    private javax.swing.JButton btnall;
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btndelete;
+    private javax.swing.JButton btndeleted;
     private javax.swing.JButton btnhistory;
-    private javax.swing.JButton btnmonthly;
     private javax.swing.JButton btnpending;
     private javax.swing.JButton btnupdate;
     private javax.swing.JComboBox<String> combostatus;
