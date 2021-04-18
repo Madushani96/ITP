@@ -36,7 +36,7 @@ public class Members extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     String bday, gen, mo;
-
+  
     /**
      * Creates new form Members
      */
@@ -1357,28 +1357,12 @@ public void calculateDOB()
     public boolean validateFields(){
         
         int nicx = 0;
-        String nic = txtnic.getText();
-        
-        if(nic.equalsIgnoreCase("")){
-        
-        }else{
-        String nicn;
-        char nic1 = nic.charAt(2);
-        char nic2 = nic.charAt(3);
-        char nic3 = nic.charAt(4);
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append(nic1);
-        sb.append(nic2);
-        sb.append(nic3);
-        nicn = sb.toString();
-        
-         nicx =Integer.parseInt(nicn);  
-        }   
+        String nic = txtnic.getText();  
         String vname = "[a-z A-Z]+\\.?";
         String vphone = "^[0-9]{10}$";
         String vaddress = "[a-z A-Z 0-9 , / ,-]+\\.?";
         String voccupation = "[a-z A-Z]+\\.?";
+        String verify = "^[0-9]$";
 
         //validate telephone
         Pattern pphone = Pattern.compile(vphone); // start , combination , total num
@@ -1402,47 +1386,58 @@ public void calculateDOB()
             JOptionPane.showMessageDialog(null, "Enter Name ");
             return false;
             
-        } 
-        else if (txtnic.getText().equalsIgnoreCase("")){
+        } else{
+            if (n.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Name invalid ");
+                return false;
+            }
+        
+        }
+        if (txtnic.getText().equalsIgnoreCase("")){
             
             JOptionPane.showMessageDialog(null, "Enter NIC");
             return false;
-        } 
-        else if (txtoccu.getText().equalsIgnoreCase("")){
             
-            JOptionPane.showMessageDialog(null, "Enter Occupation ");
-            return false;
+        }else{
             
-        } else if (txttele.getText().equalsIgnoreCase("")){
-            
-            JOptionPane.showMessageDialog(null, "Enter Telephone ");
-            return false;
-            
-        }else if (jTextArea1.getText().equalsIgnoreCase("")){
-            
-            JOptionPane.showMessageDialog(null, "Enter Address ");
-            return false;
-            
-        }else if (txtgender.getText().equalsIgnoreCase("")){
-            
-            JOptionPane.showMessageDialog(null, " Enter Gender ");
-            return false;
-            
-        }else if (txtbday.getText().equalsIgnoreCase("")){
-            
-            JOptionPane.showMessageDialog(null, " Enter Birthday ");
-            return false;
-            
-        }else if (combotype.getSelectedItem().toString().equalsIgnoreCase("Select")){
-            
-            JOptionPane.showMessageDialog(null, "Enter Member Typee ");
-            return false;
-        }
-        
-        else {
-               
             if (nic.length() == 10)
             {
+                
+                    String nicn;
+                    char nic1 = ' ';
+                    char nic2 = ' ';
+                    char nic3 = ' ';
+                    
+                    if (Character.isDigit(nic.charAt(2))){
+                    nic1 = nic.charAt(2);
+                    }else{
+                    JOptionPane.showMessageDialog(null, "Invalid NIC");
+                         return false;
+                    }
+                    if (Character.isDigit(nic.charAt(2))){
+                    nic2 = nic.charAt(3);
+                    }else{
+                    JOptionPane.showMessageDialog(null, "Invalid NIC");
+                         return false;
+                    }
+                    if (Character.isDigit(nic.charAt(2))){
+                    nic3 = nic.charAt(4);
+                    }else{
+                    JOptionPane.showMessageDialog(null, "Invalid NIC");
+                         return false;
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(nic1);
+                    sb.append(nic2);
+                    sb.append(nic3);
+                    nicn = sb.toString();
+
+                     nicx =Integer.parseInt(nicn); 
+                               
                 try 
                 {
                     int l = Integer.valueOf(nic.substring(0, 9));
@@ -1462,47 +1457,39 @@ public void calculateDOB()
                     JOptionPane.showMessageDialog(null, "Enter Valid Charactor ");
                     return false;
                 }
-                if((nicx >= 367 && nicx <=500)||(nicx >= 867) || nicx == 000){
-       
-                    JOptionPane.showMessageDialog(null, "Invalid NIC");
-                     return false;
-               }
+                   
+                    if((nicx >= 367 && nicx <=500)||(nicx >= 867) || nicx == 000){
+
+                        JOptionPane.showMessageDialog(null, "Invalid NIC");
+                         return false;
+                   }                               
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "NIC should be 10 characters long");
                 return false;
-            }
-
-            if (p.matches()) 
-            {
-                //return true;
-            } else 
-            {
-                JOptionPane.showMessageDialog(null, "Phone number invalid ");
-                return false;
-            }
-
-            if (n.matches()) 
-            {
-                //return true;
-            } else 
-            {
-                JOptionPane.showMessageDialog(null, "Name invalid ");
-                return false;
-            }
-
-            if (a.matches()) 
-            {
-               // return true;
-            } 
-            else 
-            {
-                JOptionPane.showMessageDialog(null, "Address invalid ");
-                return false;
-            }
+            }      
+        }
+        if (txtbday.getText().equalsIgnoreCase("")){
             
-             if (o.matches()) 
+            JOptionPane.showMessageDialog(null, " Enter Birthday ");
+            return false;
+            
+        }
+        if (txtgender.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, " Enter Gender ");
+            return false;
+            
+        }
+        if (txtoccu.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Occupation ");
+            return false;
+            
+        }else{
+        
+               if (o.matches()) 
             {
                // return true;
             } 
@@ -1510,9 +1497,49 @@ public void calculateDOB()
             {
                 JOptionPane.showMessageDialog(null, "Occupation invalid ");
                 return false;
-            }
-            return true;
+            }       
         }
+        
+        if (txttele.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Telephone ");
+            return false;
+            
+        }else{
+        
+             if (p.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Phone number invalid ");
+                return false;
+            }   
+        }
+        if (jTextArea1.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Address ");
+            return false;
+            
+        }else{
+            
+              if (a.matches()) 
+            {
+               // return true;
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(null, "Address invalid ");
+                return false;
+            }     
+        }
+        if (combotype.getSelectedItem().toString().equalsIgnoreCase("Select")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Member Typee ");
+            return false;
+        }
+        
+       return true;
     }
     
     public void changeIssueStatus(){
