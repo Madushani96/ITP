@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -54,6 +56,8 @@ public class Reading extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblread = new javax.swing.JTable();
+        txtsearch = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnreturn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -150,6 +154,15 @@ public class Reading extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblread);
 
+        txtsearch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtsearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtsearchKeyReleased(evt);
+            }
+        });
+
+        jLabel7.setText("Search");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -158,13 +171,21 @@ public class Reading extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -382,12 +403,14 @@ public class Reading extends javax.swing.JInternalFrame {
 
         try{
             
+            if(validateFields()){
+            
             String sql = "INSERT INTO `read`(`personname`, `nic`, `isbn`, `bookname`, `telephone`, `address`, `lendtime`, `returntime`, `status`, `readdate`) VALUES ('"+name+"','"+nic+"','"+isbn+"','"+bookname+"','"+telephone+"','"+address+"','"+time+"','pending','lent','"+today+"')";            
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
              
             JOptionPane.showMessageDialog(rootPane, "Book Issued Successfully!");
-
+            }
         
         }catch(Exception e){
             
@@ -530,6 +553,30 @@ public class Reading extends javax.swing.JInternalFrame {
        int b = evt.getChanged().getHeight();
        this.setSize(a, b);
     }//GEN-LAST:event_formAncestorResized
+
+    private void txtsearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyReleased
+        // TODO add your handling code here:
+
+        String search = txtsearch.getText();
+
+        try {
+
+            String sql = "SELECT `readid`, `personname`, `nic`, `isbn`, `bookname`, `telephone`, `address`, `lendtime`, `returntime`, `status`, `readdate` FROM `read` WHERE `personname` LIKE '%" + search + "%' "
+                    + "OR `nic` LIKE '%"+search+"%' OR `bookname` LIKE '%"+search+"%'";
+
+            pst = conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            tblread.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+
+            rs.close();
+            pst.close();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+    }//GEN-LAST:event_txtsearchKeyReleased
      
       private void SearchBook(){
          
@@ -598,6 +645,92 @@ public class Reading extends javax.swing.JInternalFrame {
         
         } 
     }
+        
+             public boolean validateFields(){
+        
+      
+        String vnic = "^[A-Z 0-9]{10}$";
+        String vaddress = "[a-z A-Z]+\\.?";
+        String vname = "[a-z A-Z]+\\.?";
+        String vtelephone = "^[0-9]{10}$";
+  
+        Pattern paddress = Pattern.compile(vaddress, Pattern.CASE_INSENSITIVE); // start , combination , total num
+        Matcher ad = paddress.matcher(txtaddress.getText());
+
+        Pattern pnic = Pattern.compile(vnic, Pattern.CASE_INSENSITIVE);
+        Matcher ni = pnic.matcher(txtnic.getText());
+        
+        Pattern pname = Pattern.compile(vname, Pattern.CASE_INSENSITIVE);
+        Matcher na = pname.matcher(txtname.getText());
+        
+        Pattern ptelephone = Pattern.compile(vtelephone, Pattern.CASE_INSENSITIVE);
+        Matcher te = ptelephone.matcher(txttelephone.getText());
+        
+        
+        if (txtname.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Name ");
+            return false;
+            
+        } else{
+            if (na.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Name invalid ");
+                return false;
+            }
+        
+        }
+        if (txtnic.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter NIC ");
+            return false;
+            
+        } else{
+            if (ni.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "NIC invalid ");
+                return false;
+            }
+        
+        }         if (txttelephone.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Telephone ");
+            return false;
+            
+        } else{
+            if (te.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Telephone invalid ");
+                return false;
+            }
+        
+        }
+         if (txtaddress.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(null, "Enter Address ");
+            return false;
+            
+        } else{
+            if (ad.matches()) 
+            {
+                //return true;
+            } else 
+            {
+                JOptionPane.showMessageDialog(null, "Address invalid ");
+                return false;
+            }
+         }            
+       return true;
+    }
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnadd;
@@ -611,6 +744,7 @@ public class Reading extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -624,6 +758,7 @@ public class Reading extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtisbn;
     private javax.swing.JTextField txtname;
     private javax.swing.JTextField txtnic;
+    private javax.swing.JTextField txtsearch;
     private javax.swing.JTextField txttelephone;
     // End of variables declaration//GEN-END:variables
 }

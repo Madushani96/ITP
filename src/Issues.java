@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author nisal
+ *
  */
 public class Issues extends javax.swing.JInternalFrame {
     
