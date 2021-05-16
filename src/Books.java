@@ -4,11 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -30,6 +39,7 @@ public class Books extends javax.swing.JInternalFrame {
      */
     public Books() {
         initComponents();
+       // conn = JDBC.ConnectDB();
         conn = JDBC.ConnectDB();
         loadTable();
         
@@ -72,11 +82,11 @@ public class Books extends javax.swing.JInternalFrame {
         tblbooks = new javax.swing.JTable();
         txtsearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnMonthly = new javax.swing.JButton();
         btndeleted = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -89,21 +99,30 @@ public class Books extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnadd.setText("Add");
+        btnadd.setBackground(new java.awt.Color(51, 255, 204));
+        btnadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        btnadd.setText("    Add");
+        btnadd.setBorder(null);
         btnadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnaddActionPerformed(evt);
             }
         });
 
-        btndelete.setText("Delete");
+        btndelete.setBackground(new java.awt.Color(255, 102, 102));
+        btndelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.gif"))); // NOI18N
+        btndelete.setText("  Delete");
+        btndelete.setBorder(null);
         btndelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndeleteActionPerformed(evt);
             }
         });
 
-        btnupdate.setText("Update");
+        btnupdate.setBackground(new java.awt.Color(255, 255, 102));
+        btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
+        btnupdate.setText("  Update");
+        btnupdate.setBorder(null);
         btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnupdateActionPerformed(evt);
@@ -118,7 +137,7 @@ public class Books extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(19, 19, 19))
         );
@@ -126,12 +145,12 @@ public class Books extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(46, 46, 46)
-                .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(46, 46, 46)
-                .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+                .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -207,7 +226,7 @@ public class Books extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtauthor, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                    .addComponent(txtauthor, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                     .addComponent(txtname)
                     .addComponent(txtisbn))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,11 +243,11 @@ public class Books extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtprice)
-                            .addComponent(combocategory, 0, 182, Short.MAX_VALUE))))
+                            .addComponent(combocategory, 0, 112, Short.MAX_VALUE))))
                 .addGap(23, 23, 23)
                 .addComponent(jLabel16)
                 .addGap(32, 32, 32)
-                .addComponent(combotype, 0, 147, Short.MAX_VALUE)
+                .addComponent(combotype, 0, 77, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
@@ -294,7 +313,7 @@ public class Books extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel2)
@@ -314,20 +333,30 @@ public class Books extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jLabel1.setText("Books");
-
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setText("Reports");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
+        jLabel3.setText("   Reports");
 
+        btnMonthly.setBackground(new java.awt.Color(102, 102, 102));
+        btnMonthly.setForeground(new java.awt.Color(255, 255, 255));
         btnMonthly.setText("Monthly Books");
+        btnMonthly.setBorder(null);
         btnMonthly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMonthlyActionPerformed(evt);
             }
         });
 
+        btndeleted.setBackground(new java.awt.Color(102, 102, 102));
+        btndeleted.setForeground(new java.awt.Color(255, 255, 255));
         btndeleted.setText("Deleted Books");
+        btndeleted.setBorder(null);
+        btndeleted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeletedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -335,18 +364,15 @@ public class Books extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(53, 53, 53)
-                            .addComponent(jLabel3)
-                            .addGap(39, 39, 39))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btndeleted, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnMonthly, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnMonthly, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addComponent(btndeleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,11 +380,15 @@ public class Books extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3)
                 .addGap(27, 27, 27)
-                .addComponent(btnMonthly)
-                .addGap(39, 39, 39)
-                .addComponent(btndeleted)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addComponent(btnMonthly, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(btndeleted, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
+
+        jLabel11.setBackground(new java.awt.Color(220, 220, 220));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setText("BOOKS MANAGEMENT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -372,19 +402,16 @@ public class Books extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(57, 57, 57))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(39, 39, 39))
+                .addComponent(jLabel11)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -421,11 +448,13 @@ public class Books extends javax.swing.JInternalFrame {
         String price = txtprice.getText();
         String type = combotype.getSelectedItem().toString();
         
+         LocalDate today = LocalDate.now();
+        
         try{
             
             if(validateFields()){
             
-            String sql = "INSERT INTO `book`(`isbn`, `name`, `author`, `publisher`, `category`, `price`, `type`, `status`) VALUES('"+isbn+"','"+name+"','"+author+"','"+publisher+"','"+category+"','"+price+"','"+type+"','available')";
+            String sql = "INSERT INTO `book`(`isbn`, `name`, `author`, `publisher`, `category`, `price`, `type`, `status`,`date`) VALUES('"+isbn+"','"+name+"','"+author+"','"+publisher+"','"+category+"','"+price+"','"+type+"','available','"+today+"')";
             pst = conn.prepareStatement(sql);
             pst.execute();
             
@@ -587,8 +616,97 @@ public class Books extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtpriceActionPerformed
 
     private void btnMonthlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonthlyActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
+             LocalDate today = LocalDate.now();
+        
+       int month = today.getMonthValue();
+       int year = today.getYear();
+       String mont = "";
+        switch (month) {
+            case 1 -> {
+                month = 12;
+                year = year - 1;
+            }
+            
+            default -> month = month - 1;
+        }
+        
+     String  mon = String.format("%02d", month);
+     String ym = year+"-"+mon;
+       
+       if(null != mon)switch (mon) {
+            case "01" -> mont = "January";
+            case "02" -> mont = "February";
+            case "03" -> mont = "March";
+            case "04" -> mont = "April";
+            case "05" -> mont = "May";
+            case "06" -> mont = "June";
+            case "07" -> mont = "July";
+            case "08" -> mont = "August";
+            case "09" -> mont = "September";
+            case "10" -> mont = "October";
+            case "11" -> mont = "November";
+            case "12" -> mont = "December";
+            default -> {
+                    }
+        }
+
+                try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\MonthlyBooks.jrxml");
+              String sql ="SELECT * FROM `book` WHERE `date`LIKE '%" +ym+ "%' ";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              
+              HashMap<String, Object> para = new HashMap<>();
+              para.put("month", mont);
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
+             // JasperViewer.viewReport(jp);
+              JasperViewer jv = new JasperViewer( jp, false );
+              jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
+               
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnMonthlyActionPerformed
+
+    private void btndeletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletedActionPerformed
+
+                try{ 
+
+              JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\DeletedBooks.jrxml");
+              String sql ="SELECT * FROM `deletedbooks`";
+              JRDesignQuery newQuery = new JRDesignQuery();
+              newQuery.setText(sql);
+              jasdi.setQuery(newQuery);
+              
+              HashMap<String, Object> para = new HashMap<>();
+              JasperReport js = JasperCompileManager.compileReport(jasdi);
+              JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
+             // JasperViewer.viewReport(jp);
+              JasperViewer jv = new JasperViewer( jp, false );
+              jv.viewReport( jp, false );
+             }catch(Exception e){
+
+                 JOptionPane.showMessageDialog(rootPane, e);
+
+             }
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btndeletedActionPerformed
 
       private void DeletedBooks(){
     
@@ -623,7 +741,7 @@ public class Books extends javax.swing.JInternalFrame {
       
         String vauthor = "[a-z A-Z]+\\.?";
         String vpublisher = "[a-z A-Z]+\\.?";
-        String vprice = "^[0-9]$";
+        String vprice = "[0-9,.]+\\.?";
         String vname = "[a-z A-Z]+\\.?";
         String visbn = "^[0-9]{4}$";
 
@@ -632,7 +750,7 @@ public class Books extends javax.swing.JInternalFrame {
         Matcher au = pauthor.matcher(txtauthor.getText());
         
         Pattern ppublisher = Pattern.compile(vpublisher, Pattern.CASE_INSENSITIVE); // start , combination , total num
-        Matcher pu = pauthor.matcher(txtpublisher.getText());
+        Matcher pu = ppublisher.matcher(txtpublisher.getText());
 
         Pattern pprice = Pattern.compile(vprice, Pattern.CASE_INSENSITIVE);
         Matcher pr = pprice.matcher(txtprice.getText());
@@ -744,7 +862,7 @@ public class Books extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnupdate;
     private javax.swing.JComboBox<String> combocategory;
     private javax.swing.JComboBox<String> combotype;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

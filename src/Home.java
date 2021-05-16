@@ -1,10 +1,15 @@
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 
 /*
@@ -25,10 +30,16 @@ public class Home extends javax.swing.JFrame {
     Books bk;
     Resources rs;
     Reading rd;
+    
+    private String currentDate;
+    private String currenTime;
      
     public Home() {
         initComponents();
-        clock();
+        showDate();
+        showTime();
+        
+        
     }
 
     /**
@@ -38,47 +49,26 @@ public class Home extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     
-  public void clock(){
-  
-      Thread clock = new Thread(){
-          
-          public void run(){
-              try{
-                  
-                  while(true){
-                  
-                      Calendar cal = new GregorianCalendar();
-                      
-                      int day = cal.get(Calendar.DAY_OF_MONTH);
-                      int month = cal.get(Calendar.MONTH)+1;
-                      int year = cal.get(Calendar.YEAR);
-                        
-                      int second = cal.get(Calendar.SECOND);
-                      int minute = cal.get(Calendar.MINUTE);
-                      int hour = cal.get(Calendar.HOUR);
-                      
-                      time.setText(hour + ":" + minute + ":" + second);
-                      date.setText(day + "-" + month + "-" + year );
-                      
-                      sleep(1000);
-                  
-                  }
-              
-              
-              }catch(Exception e){
-                  
-                  JOptionPane.showMessageDialog(null, e);
-              
-              
-              }
-                  
-          
-          }
-      
-      };
-        clock.start();
-  
-  }
+    void showDate() {
+
+        Date d = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        currentDate = s.format(d);
+        date.setText(currentDate);
+    }
+
+    void showTime() {
+
+        new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Date d = new Date();
+                SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss a");
+                currenTime = s.format(d);
+                time.setText(currenTime);
+            }
+        }).start();
+    }
        
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -115,11 +105,14 @@ public class Home extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 204, 0));
+        setBackground(new java.awt.Color(102, 102, 102));
+        setForeground(new java.awt.Color(102, 102, 102));
 
         btnbook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
         btnbook.setBorder(null);
         btnbook.setBorderPainted(false);
+        btnbook.setContentAreaFilled(false);
+        btnbook.setOpaque(false);
         btnbook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbookActionPerformed(evt);
@@ -129,6 +122,7 @@ public class Home extends javax.swing.JFrame {
         btnissue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/issue.png"))); // NOI18N
         btnissue.setBorder(null);
         btnissue.setBorderPainted(false);
+        btnissue.setContentAreaFilled(false);
         btnissue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnissueActionPerformed(evt);
@@ -138,6 +132,7 @@ public class Home extends javax.swing.JFrame {
         btnreturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
         btnreturn.setBorder(null);
         btnreturn.setBorderPainted(false);
+        btnreturn.setContentAreaFilled(false);
         btnreturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnreturnActionPerformed(evt);
@@ -146,6 +141,8 @@ public class Home extends javax.swing.JFrame {
 
         btnmember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
         btnmember.setBorderPainted(false);
+        btnmember.setContentAreaFilled(false);
+        btnmember.setOpaque(false);
         btnmember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmemberActionPerformed(evt);
@@ -177,6 +174,7 @@ public class Home extends javax.swing.JFrame {
 
         btnread.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/read.png"))); // NOI18N
         btnread.setBorderPainted(false);
+        btnread.setContentAreaFilled(false);
         btnread.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnreadActionPerformed(evt);
@@ -185,6 +183,7 @@ public class Home extends javax.swing.JFrame {
 
         btnres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resources.png"))); // NOI18N
         btnres.setBorderPainted(false);
+        btnres.setContentAreaFilled(false);
         btnres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnresActionPerformed(evt);
@@ -208,6 +207,8 @@ public class Home extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Resources");
+
+        jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
 
         jMenu1.setText("File");
 
@@ -252,10 +253,10 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 805, Short.MAX_VALUE)
-                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(112, 112, 112))
+                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
