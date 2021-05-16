@@ -38,6 +38,8 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         showDate();
         showTime();
+        
+        
     }
 
     /**
@@ -103,11 +105,14 @@ public class Home extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 204, 0));
+        setBackground(new java.awt.Color(102, 102, 102));
+        setForeground(new java.awt.Color(102, 102, 102));
 
         btnbook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
         btnbook.setBorder(null);
         btnbook.setBorderPainted(false);
+        btnbook.setContentAreaFilled(false);
+        btnbook.setOpaque(false);
         btnbook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbookActionPerformed(evt);
@@ -117,6 +122,7 @@ public class Home extends javax.swing.JFrame {
         btnissue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/issue.png"))); // NOI18N
         btnissue.setBorder(null);
         btnissue.setBorderPainted(false);
+        btnissue.setContentAreaFilled(false);
         btnissue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnissueActionPerformed(evt);
@@ -126,6 +132,7 @@ public class Home extends javax.swing.JFrame {
         btnreturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/return.png"))); // NOI18N
         btnreturn.setBorder(null);
         btnreturn.setBorderPainted(false);
+        btnreturn.setContentAreaFilled(false);
         btnreturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnreturnActionPerformed(evt);
@@ -134,6 +141,8 @@ public class Home extends javax.swing.JFrame {
 
         btnmember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
         btnmember.setBorderPainted(false);
+        btnmember.setContentAreaFilled(false);
+        btnmember.setOpaque(false);
         btnmember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnmemberActionPerformed(evt);
@@ -165,6 +174,7 @@ public class Home extends javax.swing.JFrame {
 
         btnread.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/read.png"))); // NOI18N
         btnread.setBorderPainted(false);
+        btnread.setContentAreaFilled(false);
         btnread.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnreadActionPerformed(evt);
@@ -173,6 +183,7 @@ public class Home extends javax.swing.JFrame {
 
         btnres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resources.png"))); // NOI18N
         btnres.setBorderPainted(false);
+        btnres.setContentAreaFilled(false);
         btnres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnresActionPerformed(evt);
@@ -196,6 +207,8 @@ public class Home extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Resources");
+
+        jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
 
         jMenu1.setText("File");
 

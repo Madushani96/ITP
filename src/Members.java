@@ -117,30 +117,33 @@ public class Members extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnadd.setBackground(new java.awt.Color(0, 255, 204));
         btnadd.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         btnadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         btnadd.setText("   Add  ");
-        btnadd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnadd.setBorder(null);
         btnadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnaddActionPerformed(evt);
             }
         });
 
+        btndelete.setBackground(new java.awt.Color(255, 102, 102));
         btndelete.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         btndelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.gif"))); // NOI18N
         btndelete.setText("  Delete");
-        btndelete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btndelete.setBorder(null);
         btndelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndeleteActionPerformed(evt);
             }
         });
 
+        btnupdate.setBackground(new java.awt.Color(255, 255, 102));
         btnupdate.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
         btnupdate.setText("  Update");
-        btnupdate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnupdate.setBorder(null);
         btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnupdateActionPerformed(evt);
@@ -477,10 +480,11 @@ public class Members extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnclear.setBackground(new java.awt.Color(51, 204, 255));
         btnclear.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         btnclear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear.png"))); // NOI18N
         btnclear.setText("  Clear");
-        btnclear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnclear.setBorder(null);
         btnclear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnclearActionPerformed(evt);
@@ -506,27 +510,33 @@ public class Members extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnhistory.setBackground(new java.awt.Color(102, 102, 102));
         btnhistory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnhistory.setForeground(new java.awt.Color(255, 255, 255));
         btnhistory.setText("Borrow History");
-        btnhistory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnhistory.setBorder(null);
         btnhistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhistoryActionPerformed(evt);
             }
         });
 
+        btnpending.setBackground(new java.awt.Color(102, 102, 102));
         btnpending.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnpending.setForeground(new java.awt.Color(255, 255, 255));
         btnpending.setText("Pending Members");
-        btnpending.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnpending.setBorder(null);
         btnpending.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpendingActionPerformed(evt);
             }
         });
 
+        btnall.setBackground(new java.awt.Color(102, 102, 102));
         btnall.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnall.setForeground(new java.awt.Color(255, 255, 255));
         btnall.setText("All Members");
-        btnall.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnall.setBorder(null);
         btnall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnallActionPerformed(evt);
@@ -537,9 +547,11 @@ public class Members extends javax.swing.JInternalFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
         jLabel3.setText("Reports");
 
+        btndeleted.setBackground(new java.awt.Color(102, 102, 102));
         btndeleted.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btndeleted.setForeground(new java.awt.Color(255, 255, 255));
         btndeleted.setText("Deleted Members");
-        btndeleted.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btndeleted.setBorder(null);
         btndeleted.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndeletedActionPerformed(evt);
