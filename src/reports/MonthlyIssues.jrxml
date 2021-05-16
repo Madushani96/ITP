@@ -225,7 +225,7 @@
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total number of borrows :]]></text>
+				<text><![CDATA[Total number of issues :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="145" y="39" width="100" height="20" uuid="1fc2f0be-bf57-40aa-b839-802f5405072f"/>
