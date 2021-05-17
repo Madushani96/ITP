@@ -246,31 +246,35 @@ public class NewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnameActionPerformed
 
     private void registerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbuttonActionPerformed
-        // TODO add your handling code here:
-        try{
+
+      String username = txtusername.getText();
+      String name = txtname.getText();
+      String role = comborole.getSelectedItem().toString();
+      String password = passwordtext.getText();
+      String securityq = combosecu.getSelectedItem().toString();
+      String answer = txtans.getText();
+      
+       try{
             
+             if (validateFields()){
             
-            
-            if(validateFields()){
-            
-            String sql="Insert into user (username,name,role,password,security,answer)values(?,?,?,?,?,?)";
+           // String sql = "INSERT INTO `member`(`memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`,`status`,`registereddate`) VALUES('"+memberid+"','"+name+"','"+nic+"','"+birthday+"','"+gender+"','"+occupation+"','"+telephone+"','"+address+"','"+type+"','eligible','"+today+"')";
+           String sql = "Insert into user (username,name,role,password,security,answer)values('"+username+"','"+name+"','"+role+"','"+password+"','"+securityq+"','"+answer+"')";
             pst = conn.prepareStatement(sql);
-            pst.setString(1, txtusername.getText());
-            pst.setString(2, txtname.getText());
-            pst.setString(3,(String) comborole.getSelectedItem());
-            pst.setString(4, passwordtext.getText());
-            pst.setString(5,(String) combosecu.getSelectedItem());
-            pst.setString(6, txtans.getText());
             pst.execute();
             
-            JOptionPane.showMessageDialog(null,"New Account Created Successfully!");
-            }
-         
+            rs.close();
+            pst.close();
+            
+            JOptionPane.showMessageDialog(rootPane, "New Account Created Successfully!");
+            
+             }
+        
         }catch(Exception e){
             
-            JOptionPane.showMessageDialog(null, e);
-            
-        }
+            JOptionPane.showMessageDialog(rootPane, e);
+        
+        }     
     }//GEN-LAST:event_registerbuttonActionPerformed
 
     private void buttonbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonbackActionPerformed
