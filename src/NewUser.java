@@ -47,6 +47,7 @@ public class NewUser extends javax.swing.JFrame {
         combosecu = new javax.swing.JComboBox<>();
         txtans = new javax.swing.JTextField();
         buttonback = new javax.swing.JButton();
+        btndemo = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,7 +105,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
 
-        combosecu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "What is your favourite colour?", "What is your mother's maiden name?", "What is your alma mater?", "What is your childhood nickname?", "What is your mother toungue?" }));
+        combosecu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "What is your favourite colour?", "What is the name of your mother?", "What is your alma mater?", "What is your nickname?", "What is your mother toungue?" }));
         combosecu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combosecuActionPerformed(evt);
@@ -140,23 +141,18 @@ public class NewUser extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtusername)
-                        .addComponent(txtname)
-                        .addComponent(comborole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(passwordtext, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(registerbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonback, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(combosecu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtans, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(registerbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonback, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtusername)
+                    .addComponent(combosecu, javax.swing.GroupLayout.Alignment.TRAILING, 0, 275, Short.MAX_VALUE)
+                    .addComponent(txtname)
+                    .addComponent(comborole, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtans)
+                    .addComponent(passwordtext))
                 .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
@@ -186,11 +182,22 @@ public class NewUser extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtans, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registerbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonback, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(buttonback, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        btndemo.setBackground(new java.awt.Color(204, 153, 255));
+        btndemo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btndemo.setText("Demo");
+        btndemo.setBorder(null);
+        btndemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndemoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -198,14 +205,18 @@ public class NewUser extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btndemo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(btndemo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel10.setBackground(new java.awt.Color(220, 220, 220));
@@ -217,27 +228,25 @@ public class NewUser extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addContainerGap()
                 .addComponent(jLabel10)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(420, 426));
+        setSize(new java.awt.Dimension(481, 472));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,31 +255,34 @@ public class NewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnameActionPerformed
 
     private void registerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbuttonActionPerformed
-        // TODO add your handling code here:
-        try{
+
+      String username = txtusername.getText();
+      String name = txtname.getText();
+      String role = comborole.getSelectedItem().toString();
+      String password = passwordtext.getText();
+      String securityq = combosecu.getSelectedItem().toString();
+      String answer = txtans.getText();
+      
+       try{
             
+             if (validateFields()){
             
-            
-            if(validateFields()){
-            
-            String sql="Insert into user (username,name,role,password,security,answer)values(?,?,?,?,?,?)";
+            String sql = "Insert into user (username,name,role,password,security,answer)values('"+username+"','"+name+"','"+role+"','"+password+"','"+securityq+"','"+answer+"')";
             pst = conn.prepareStatement(sql);
-            pst.setString(1, txtusername.getText());
-            pst.setString(2, txtname.getText());
-            pst.setString(3,(String) comborole.getSelectedItem());
-            pst.setString(4, passwordtext.getText());
-            pst.setString(5,(String) combosecu.getSelectedItem());
-            pst.setString(6, txtans.getText());
             pst.execute();
             
-            JOptionPane.showMessageDialog(null,"New Account Created Successfully!");
-            }
-         
+            rs.close();
+            pst.close();
+            
+            JOptionPane.showMessageDialog(rootPane, "New Account Created Successfully!");
+            
+             }
+        
         }catch(Exception e){
             
-            JOptionPane.showMessageDialog(null, e);
-            
-        }
+            JOptionPane.showMessageDialog(rootPane, e);
+        
+        }     
     }//GEN-LAST:event_registerbuttonActionPerformed
 
     private void buttonbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonbackActionPerformed
@@ -300,6 +312,17 @@ public class NewUser extends javax.swing.JFrame {
     private void txtansActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtansActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtansActionPerformed
+
+    private void btndemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndemoActionPerformed
+        // TODO add your handling code here:
+        
+        txtusername.setText("Madushani");
+        txtname.setText("Madushani Nawarathne");
+        comborole.setSelectedIndex(1);
+        passwordtext.setText("IT17007702m*");
+        combosecu.setSelectedIndex(1);
+        txtans.setText("Red");
+    }//GEN-LAST:event_btndemoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,6 +466,7 @@ public class NewUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btndemo;
     private javax.swing.JButton buttonback;
     private javax.swing.JComboBox<String> comborole;
     private javax.swing.JComboBox<String> combosecu;

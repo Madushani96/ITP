@@ -86,6 +86,7 @@ public class Books extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         btnMonthly = new javax.swing.JButton();
         btndeleted = new javax.swing.JButton();
+        btndemo = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
@@ -226,7 +227,7 @@ public class Books extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtauthor, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                    .addComponent(txtauthor, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(txtname)
                     .addComponent(txtisbn))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,11 +244,11 @@ public class Books extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtprice)
-                            .addComponent(combocategory, 0, 112, Short.MAX_VALUE))))
+                            .addComponent(combocategory, 0, 160, Short.MAX_VALUE))))
                 .addGap(23, 23, 23)
                 .addComponent(jLabel16)
                 .addGap(32, 32, 32)
-                .addComponent(combotype, 0, 77, Short.MAX_VALUE)
+                .addComponent(combotype, 0, 127, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
@@ -313,7 +314,7 @@ public class Books extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel2)
@@ -358,6 +359,15 @@ public class Books extends javax.swing.JInternalFrame {
             }
         });
 
+        btndemo.setBackground(new java.awt.Color(204, 153, 255));
+        btndemo.setText("Demo");
+        btndemo.setBorder(null);
+        btndemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndemoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -371,7 +381,10 @@ public class Books extends javax.swing.JInternalFrame {
                         .addGap(21, 21, 21)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnMonthly, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(btndeleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btndeleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(btndemo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -383,7 +396,9 @@ public class Books extends javax.swing.JInternalFrame {
                 .addComponent(btnMonthly, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btndeleted, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(btndemo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jLabel11.setBackground(new java.awt.Color(220, 220, 220));
@@ -708,6 +723,18 @@ public class Books extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btndeletedActionPerformed
 
+    private void btndemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndemoActionPerformed
+        // TODO add your handling code here:
+        txtisbn.setText("9876");
+        txtname.setText("The BFG");
+        txtauthor.setText("Roald Dhal");
+        txtpublisher.setText("Buttercup");
+        combocategory.setSelectedIndex(2);
+        txtprice.setText("500");
+        combotype.setSelectedIndex(1); 
+             
+    }//GEN-LAST:event_btndemoActionPerformed
+
       private void DeletedBooks(){
     
       try{
@@ -859,6 +886,7 @@ public class Books extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnadd;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btndeleted;
+    private javax.swing.JButton btndemo;
     private javax.swing.JButton btnupdate;
     private javax.swing.JComboBox<String> combocategory;
     private javax.swing.JComboBox<String> combotype;

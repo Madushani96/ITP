@@ -93,6 +93,7 @@ public class Issues extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btndeleted = new javax.swing.JButton();
+        btndemo = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(898, 487));
@@ -272,7 +273,7 @@ public class Issues extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -312,7 +313,7 @@ public class Issues extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addGap(53, 53, 53)
                 .addComponent(datedue, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,6 +418,15 @@ public class Issues extends javax.swing.JInternalFrame {
             }
         });
 
+        btndemo.setBackground(new java.awt.Color(204, 153, 255));
+        btndemo.setText("Demo");
+        btndemo.setBorder(null);
+        btndemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndemoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -427,8 +437,13 @@ public class Issues extends javax.swing.JInternalFrame {
                     .addComponent(btndeleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 4, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel9)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(btndemo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -440,7 +455,9 @@ public class Issues extends javax.swing.JInternalFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btndeleted, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(btndemo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         jLabel10.setBackground(new java.awt.Color(220, 220, 220));
@@ -770,6 +787,12 @@ public class Issues extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btndeletedActionPerformed
 
+    private void btndemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndemoActionPerformed
+     
+        txtmemid.setText("MI1014");
+        txtisbn.setText("9999");
+    }//GEN-LAST:event_btndemoActionPerformed
+
      private void SearchMember(){
          
         try{
@@ -901,6 +924,7 @@ public class Issues extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnbookget;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btndeleted;
+    private javax.swing.JButton btndemo;
     private javax.swing.JButton btnmemget;
     private javax.swing.JButton btnupdate;
     private com.toedter.calendar.JDateChooser datedue;
