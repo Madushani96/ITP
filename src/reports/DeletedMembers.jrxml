@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e317350-206d-490f-a44c-b003d3ca7362">
 	<property name="ireport.zoom" value="1.7715610000000015"/>
-	<property name="ireport.x" value="40"/>
-	<property name="ireport.y" value="135"/>
+	<property name="ireport.x" value="23"/>
+	<property name="ireport.y" value="21"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -13,7 +13,6 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="month" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select * from `deletedmember`]]>
 	</queryString>
@@ -45,7 +44,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="266" splitType="Stretch">
+		<band height="204" splitType="Stretch">
 			<frame>
 				<reportElement mode="Opaque" x="2" y="0" width="555" height="95" backcolor="#000000" uuid="cffc94cb-4df1-402f-85d2-9d0eef43fd82"/>
 				<staticText>
@@ -74,22 +73,15 @@
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="228" y="144" width="160" height="39" uuid="ab392a46-7f73-4fbe-b496-e35580b6413e"/>
-				<textElement>
-					<font size="20" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="208" width="228" height="20" uuid="aab1ed14-dc9e-49b1-ad80-ac87b495c337"/>
+				<reportElement x="0" y="158" width="142" height="20" uuid="aab1ed14-dc9e-49b1-ad80-ac87b495c337"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total deleted members for the month :]]></text>
+				<text><![CDATA[Total deleted members:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement x="228" y="208" width="100" height="20" uuid="25e8941d-a52a-4665-8565-6846f5f48e02"/>
+				<reportElement x="142" y="158" width="100" height="20" uuid="25e8941d-a52a-4665-8565-6846f5f48e02"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>

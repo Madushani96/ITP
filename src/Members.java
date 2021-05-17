@@ -102,6 +102,7 @@ public class Members extends javax.swing.JInternalFrame {
         btnall = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btndeleted = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -471,7 +472,7 @@ public class Members extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(combostatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(220, 220, 220));
@@ -588,6 +589,16 @@ public class Members extends javax.swing.JInternalFrame {
                 .addGap(13, 13, 13))
         );
 
+        jButton2.setBackground(new java.awt.Color(204, 153, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setText("Demo");
+        jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -603,16 +614,19 @@ public class Members extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -622,7 +636,8 @@ public class Members extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1183,51 +1198,16 @@ String search = txtsearch.getText();
     }//GEN-LAST:event_formAncestorResized
 
     private void btndeletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletedActionPerformed
-        // TODO add your handling code here:
-                LocalDate today = LocalDate.now();
-        
-       int month = today.getMonthValue();
-       int year = today.getYear();
-       String mont = "";
-        switch (month) {
-            case 1 -> {
-                month = 12;
-                year = year - 1;
-            }
-            
-            default -> month = month - 1;
-        }
-        
-     String  mon = String.format("%02d", month);
-     String ym = year+"-"+mon;
-       
-       if(null != mon)switch (mon) {
-            case "01" -> mont = "January";
-            case "02" -> mont = "February";
-            case "03" -> mont = "March";
-            case "04" -> mont = "April";
-            case "05" -> mont = "May";
-            case "06" -> mont = "June";
-            case "07" -> mont = "July";
-            case "08" -> mont = "August";
-            case "09" -> mont = "September";
-            case "10" -> mont = "October";
-            case "11" -> mont = "November";
-            case "12" -> mont = "December";
-            default -> {
-                    }
-        }
-       
+
        try{ 
 
               JasperDesign jasdi = JRXmlLoader.load("C:\\Users\\nisal\\Documents\\NetBeansProjects\\LibraryManagementSystem\\src\\reports\\DeletedMembers.jrxml");
-              String sql ="SELECT * FROM `deletedmember` WHERE `deleteddate`LIKE '%" +ym+ "%' ";
+              String sql ="SELECT * FROM `deletedmember`";
               JRDesignQuery newQuery = new JRDesignQuery();
               newQuery.setText(sql);
               jasdi.setQuery(newQuery);
               
               HashMap<String, Object> para = new HashMap<>();
-              para.put("month", mont);
               JasperReport js = JasperCompileManager.compileReport(jasdi);
               JasperPrint jp = JasperFillManager.fillReport(js,para, conn);
              // JasperViewer.viewReport(jp);
@@ -1244,9 +1224,21 @@ String search = txtsearch.getText();
         
     }//GEN-LAST:event_btndeletedActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        clearField();
+        autoId();
+        txtname.setText("Donatella Versace");
+        txtnic.setText("716570630V");
+        txtoccu.setText("Model");
+        txttele.setText("0718003271");
+        jTextArea1.setText("Kandy");
+        combotype.setSelectedIndex(2);
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
       private void DeletedMembers(){
-    
-      try{
           
         String memberid = txtid.getText();
         String name = txtname.getText();
@@ -1257,15 +1249,36 @@ String search = txtsearch.getText();
         String telephone = txttele.getText();
         String address = jTextArea1.getText();
         String type = combotype.getSelectedItem().toString();
+        String status = "";
+        String registered = "";
         
         LocalDate today = LocalDate.now();
-
-            String sql = "INSERT INTO `deletedmember`(`memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`,`status`,`registereddate`, `deleteddate`) VALUES('"+memberid+"','"+name+"','"+nic+"','"+birthday+"','"+gender+"','"+occupation+"','"+telephone+"','"+address+"','"+type+"',(SELECT `status` FROM `member` WHERE `memberid` = '"+memberid+"'), (SELECT `registereddate` FROM `member` WHERE `memberid` = '"+memberid+"'), '"+today+"')";
+          
+          
+      try{
+      
+            String sql = "SELECT status, registereddate from member where memberid = '"+memberid+"'";
+            pst = conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+               
+             while(rs.next()){
+                 
+             status = rs.getString("status");
+             registered = rs.getString("registereddate");
+           
+            }  
+      
+      }catch(Exception e){
+      
+          JOptionPane.showMessageDialog(rootPane, e);
+        
+      }      
+      try{
+          
+            String sql = "INSERT INTO `deletedmember`(`memberid`, `name`, `nic`, `birthday`, `gender`, `occupation`, `telephone`, `address`, `type`,`status`,`registereddate`, `deleteddate`) VALUES('"+memberid+"','"+name+"','"+nic+"','"+birthday+"','"+gender+"','"+occupation+"','"+telephone+"','"+address+"','"+type+"','"+status+"','"+registered+"', '"+today+"')";
             pst = conn.prepareStatement(sql);
             pst.execute();
-            
-            rs.close();
-            pst.close();
+
                     
         }catch(Exception e){
             
@@ -1614,6 +1627,7 @@ public void calculateDOB()
     private javax.swing.JComboBox<String> combostatus;
     private javax.swing.JComboBox<String> combotype;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
